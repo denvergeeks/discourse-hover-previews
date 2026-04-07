@@ -374,53 +374,52 @@ async function hoverCardsDisabledForUser(api, currentUser) {
   return false;
 }
 
+function isTopicAnchor(link) {
+  if (!link) return false;
+  return !!topicIdFromHref(link.href);
+}
+
 function inDocCategoriesView(link) {
-  return (
-    !!link.closest(".doc-categories") ||
-    !!link.closest(".doc-categories-container") ||
-    !!link.closest("[class*='doc-categories']") ||
-    document.body.classList.contains("doc-categories")
+  return !!link.closest(
+    ".doc-categories a, .doc-categories-container a, [class*='doc-categories'] a"
   );
 }
 
 function inKanbanView(link) {
-  return (
-    !!link.closest(".kanban-board") ||
-    !!link.closest(".kanban-column") ||
-    !!link.closest(".kanban-card") ||
-    !!link.closest("[class*='kanban']") ||
-    document.body.classList.contains("kanban")
+  return !!link.closest(
+    ".kanban-board a, .kanban-column a, .kanban-card a, [class*='kanban'] a"
   );
 }
 
 function inCategoryHomepageTopicList(link) {
-  const href = link.getAttribute("href") || "";
-  const isTopicLink =
-    !!topicIdFromHref(link.href) || /^\/t\/(?:[^/]+\/)?\d+/.test(href);
+  if (!isTopicAnchor(link)) return false;
 
-  if (!isTopicLink) {
-    return false;
-  }
+  return !!link.closest(
+    ".categories-and-latest-topics a.title, " +
+      ".categories-and-latest-topics .main-link a, " +
+      ".categories-and-featured-topics a.title, " +
+      ".categories-and-featured-topics .main-link a, " +
+      ".categories-with-featured-topics a.title, " +
+      ".categories-with-featured-topics .main-link a, " +
+      ".categories-only a.title, " +
+      ".categories-only .main-link a"
+  );
+}
 
-  const body = document.body;
-  const html = document.documentElement;
+function inTopicList(link) {
+  return !!link.closest(
+    ".topic-list a.title, .topic-list .main-link a, [class*='topic-list'] a.title, [class*='topic-list'] .main-link a"
+  );
+}
 
-  const bodyClasses = [...body.classList];
-  const htmlClasses = [...html.classList];
+function inSuggestedTopics(link) {
+  return !!link.closest(
+    ".suggested-topics a.title, .suggested-topics .main-link a"
+  );
+}
 
-  const inCategoriesHomepage =
-    bodyClasses.includes("navigation-categories") ||
-    bodyClasses.includes("categories-list") ||
-    bodyClasses.includes("category-list") ||
-    htmlClasses.includes("categories") ||
-    !!document.querySelector(".categories-and-latest-topics") ||
-    !!document.querySelector(".categories-and-featured-topics") ||
-    !!document.querySelector(".categories-with-featured-topics") ||
-    !!document.querySelector(".categories-only") ||
-    window.location.pathname === "/categories" ||
-    window.location.pathname === "/";
-
-  return inCategoriesHomepage;
+function inCookedPost(link) {
+  return !!link.closest(".topic-post .cooked a");
 }
 
 function buildCardHTML(topic, site, isMobile = false) {
@@ -551,11 +550,11 @@ function buildCardHTML(topic, site, isMobile = false) {
     ? `<div class="topic-hover-card__title">${title}</div>`
     : "";
 
-const firstPost = topic.post_stream?.posts?.[0];
-const excerptSource =
-  topic.excerpt || firstPost?.excerpt || firstPost?.cooked || "";
-const cleanedExcerpt = stripHtml(excerptSource);
-const finalExcerpt = cleanedExcerpt.length >= 20 ? cleanedExcerpt : "";
+  const firstPost = topic.post_stream?.posts?.[0];
+  const excerptSource =
+    topic.excerpt || firstPost?.excerpt || firstPost?.cooked || "";
+  const cleanedExcerpt = stripHtml(excerptSource);
+  const finalExcerpt = cleanedExcerpt.length >= 20 ? cleanedExcerpt : "";
 
   const excerpt =
     showExcerpt && finalExcerpt
@@ -853,8 +852,7 @@ export default apiInitializer((api) => {
       }
 
       currentTopicId = topicId;
-//      const mobile = isMobileView();
-const mobile = isMobileLayout();
+      const mobile = isMobileLayout();
 
       if (topicCache[topicId]) {
         tooltip.innerHTML = buildCardHTML(topicCache[topicId], site, mobile);
@@ -866,12 +864,7 @@ const mobile = isMobileLayout();
           .then((data) => {
             if (currentTopicId === topicId) {
               topicCache[topicId] = data;
-              tooltip.innerHTML = buildCardHTML(
-                data,
-                site,
-//                isMobileView()
-isMobileLayout()
-              );
+              tooltip.innerHTML = buildCardHTML(data, site, isMobileLayout());
               observeCardHeight(tooltip);
               positionTooltip(anchorRect);
             }
@@ -919,37 +912,44 @@ isMobileLayout()
     }
 
     function linkInSupportedArea(link) {
-      const inSuggested = !!link.closest(".suggested-topics");
-      if (inSuggested) {
-        return settings.enable_on_suggested_topic_links;
+      if (!isTopicAnchor(link)) {
+        return false;
       }
 
-      if (inDocCategoriesView(link)) {
-        return settings.enable_on_doc_categories;
+      if (settings.enable_on_suggested_topic_links && inSuggestedTopics(link)) {
+        return true;
       }
 
-      if (inKanbanView(link)) {
-        return settings.enable_on_kanban_boards;
+      if (settings.enable_on_doc_categories && inDocCategoriesView(link)) {
+        return true;
       }
 
-      if (inCategoryHomepageTopicList(link)) {
-        return settings.enable_on_category_homepage_topic_lists;
+      if (settings.enable_on_kanban_boards && inKanbanView(link)) {
+        return true;
       }
 
-      const inTopicList =
-        !!link.closest(".topic-list") || !!link.closest("[class*='topic-list']");
-      if (inTopicList) {
-        return settings.enable_on_topic_lists;
+      if (
+        settings.enable_on_category_homepage_topic_lists &&
+        inCategoryHomepageTopicList(link)
+      ) {
+        return true;
       }
 
-      const post = link.closest(".topic-post");
-      const inPostCooked = !!link.closest(".topic-post .cooked");
+      if (settings.enable_on_topic_lists && inTopicList(link)) {
+        return true;
+      }
 
-      if (inPostCooked && post) {
-        const isFirstPost = post.classList.contains("topic-owner");
-        return isFirstPost
-          ? settings.enable_on_topics
-          : settings.enable_on_replies;
+      if (inCookedPost(link)) {
+        const post = link.closest(".topic-post");
+        const isFirstPost = post?.classList.contains("topic-owner");
+
+        if (isFirstPost && settings.enable_on_topics) {
+          return true;
+        }
+
+        if (!isFirstPost && settings.enable_on_replies) {
+          return true;
+        }
       }
 
       return false;
