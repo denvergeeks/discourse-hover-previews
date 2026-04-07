@@ -178,7 +178,7 @@ excerpt_length:
 
 excerpt_length_mobile:
   type: integer
-  default: 2
+  default: 3
   min: 1
   max: 12
   description: "Number of excerpt lines to show on mobile."
