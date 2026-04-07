@@ -88,7 +88,7 @@ thumbnail_placement:
     - left
     - right
     - bottom
-  description: "Choose where the thumbnail appears on desktop. On mobile, the thumbnail is always shown at the top."
+  description: "Choose where the thumbnail appears on desktop."
 
 density:
   type: enum
@@ -113,7 +113,7 @@ image_size_percent:
   default: 30
   min: 15
   max: 60
-  description: "For desktop left and right thumbnail layouts, sets the image width as a percentage of the hover card width."
+  description: "Sets the image as a percentage of the hover card size."
 
 mobile_width_percent:
   type: integer
