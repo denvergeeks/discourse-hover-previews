@@ -240,5 +240,5 @@ show_activity:
 
 show_activity_mobile:
   type: bool
-  default: false
+  default: true
   description: "Display the most recent topic activity date on mobile."
