@@ -12,6 +12,9 @@ en:
     card_delay_ms: "Hover delay"
     card_delay_ms_description: "Delay in milliseconds before the hover card appears."
 
+    topic_cache_max: "Topic cache max"
+    topic_cache_max_description: "Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session."
+
     enable_on_mobile: "Enable on mobile"
     enable_on_mobile_description: "Enable tap-to-preview behavior on touch devices."
 
@@ -25,22 +28,22 @@ en:
     resolve_user_field_id_for_admins_description: "When enabled, admins can configure the preference field by name or user_field_X; the component resolves the numeric user-field ID via /admin/config/user-fields.json."
 
     enable_on_topics: "Enable on topics"
-    enable_on_topics_description: "Show hover cards for topic links inside the original post."
+    enable_on_topics_description: "Show hover cards for internal topic links inside the original post."
 
     enable_on_replies: "Enable on replies"
-    enable_on_replies_description: "Show hover cards for topic links inside replies."
+    enable_on_replies_description: "Show hover cards for internal topic links inside replies."
 
     enable_on_topic_lists: "Enable on topic lists"
-    enable_on_topic_lists_description: "Show hover cards for topic links in standard topic lists (Latest, Top, category topic lists, tags, etc.)."
+    enable_on_topic_lists_description: "Show hover cards for internal topic links shown in standard topic list views (Latest, Top, category topic lists, tags, etc.)."
 
     enable_on_category_homepage_topic_lists: "Enable on category homepage topic lists"
-    enable_on_category_homepage_topic_lists_description: "Show hover cards for topic links in the latest/featured topic lists on the categories homepage (including Categories + Latest layouts rendered at / or /categories)."
+    enable_on_category_homepage_topic_lists_description: "Show hover cards for internal topic links shown in topic-list areas on category homepage layouts, including Categories + Latest layouts rendered at / or /categories."
 
     enable_on_doc_categories: "Enable on Doc Categories"
-    enable_on_doc_categories_description: "Show hover cards for topic links in Doc Categories views (when available)."
+    enable_on_doc_categories_description: "Show hover cards for internal topic links inside Discourse Doc Categories views and navigation areas (when available)."
 
     enable_on_kanban_boards: "Enable on Kanban boards"
-    enable_on_kanban_boards_description: "Show hover cards for topic links rendered in Kanban-style board layouts (when available)."
+    enable_on_kanban_boards_description: "Show hover cards for internal topic links inside Discourse Kanban board cards and board views (when available)."
 
     enable_on_suggested_topic_links: "Enable on suggested topic links"
     enable_on_suggested_topic_links_description: "Show hover cards for links in the suggested topics section."
@@ -55,19 +58,16 @@ en:
     thumbnail_placement_description: "Choose where the thumbnail appears."
 
     density: "Density"
-    density_description: "Controls desktop hover card density. Options: default, cozy, compact."
+    density_description: "Controls desktop hover card density. Matches the relative options used by Density Toggle: default, cozy, and compact."
 
     density_mobile: "Density on mobile"
-    density_mobile_description: "Controls mobile hover card density. Options: default, cozy, compact."
+    density_mobile_description: "Controls mobile hover card density. Matches the relative options used by Density Toggle: default, cozy, and compact."
 
     image_size_percent: "Image size percent"
     image_size_percent_description: "Sets the image size as a percentage of the hover card size."
 
     mobile_width_percent: "Mobile width percent"
     mobile_width_percent_description: "Controls the mobile preview width as a percentage of the viewport width."
-
-    mobile_thumbnail_height: "Mobile thumbnail height"
-    mobile_thumbnail_height_description: "Controls the thumbnail height in pixels for the mobile bottom-sheet preview."
 
     show_category: "Show category"
     show_category_description: "Display the topic category badge on desktop when category data is available."
