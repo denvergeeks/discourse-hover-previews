@@ -1,253 +1,252 @@
-
 card_delay_ms:
-  type: integer
   default: 300
+  type: integer
   min: 0
-  max: 5000
-  description: "Delay in milliseconds before the hover card appears."
+  max: 2000
+  description: Delay in milliseconds before the hover card appears.
 
 enable_on_mobile:
-  type: bool
   default: false
-  description: "Enable tap-to-preview behavior on touch devices. If not enabled, all settings below for Mobile are ignored."
+  type: bool
+  description: Enable tap-to-preview behavior on touch devices.
 
 density:
-  type: enum
   default: default
+  type: enum
   choices:
     - default
     - cozy
     - compact
-  description: "Controls desktop hover card density."
+  description: Controls desktop hover card density.
 
 density_mobile:
+  default: cozy
   type: enum
-  default: default
   choices:
     - default
     - cozy
     - compact
-  description: "Controls mobile hover card density."
+  description: Controls mobile hover card density.
 
 card_width:
+  default: 32rem
   type: string
-  default: "32rem"
-  description: "Any valid CSS width value, such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem)."
+  description: Any valid CSS width value such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem).
 
 mobile_width_percent:
-  type: integer
   default: 100
+  type: integer
   min: 70
   max: 100
-  description: "Controls the mobile preview width as a percentage of the viewport width."
+  description: Controls the mobile hover card width as a percentage of the viewport width.
 
 show_thumbnail:
-  type: bool
   default: true
-  description: "Display the topic thumbnail image on desktop."
+  type: bool
+  description: Display the topic thumbnail image on desktop.
 
 thumbnail_placement:
-  type: enum
   default: left
+  type: enum
   choices:
     - top
-    - left
     - right
     - bottom
-  description: "On desktop, choose where the thumbnail appears."
+    - left
+  description: Choose where the thumbnail appears on desktop.
 
 thumbnail_size_mode:
-  type: enum
   default: auto_fit_height
+  type: enum
   choices:
-    - auto_fit_height  
     - manual
-  description: "Setting this to auto-fit-height matches the image height to the card height, and uses the setting Thumbnail Auto-Fit Max Width (below) to constrain the image width. Setting this to manual mode uses the setting Thumbnail Size as Percent (below)."
+    - auto_fit_height
+  description: Auto-fit-height matches image height to card height. Manual uses the configured width percentage.
 
 thumbnail_auto_fit_max_width:
+  default: 10rem
   type: string
-  default: "10rem"
-  description: "Used only in auto-fit-height Thumbnail Sizing Mode (above). Sets the maximum width of the left/right thumbnail. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
+  description: Used only in auto-fit-height mode. Accepts any valid CSS width such as 8rem, 160px, or 12vw.
 
 thumbnail_size_percent:
-  type: integer
   default: 15
-  min: 10
-  max: 60
-  description: "Used only in manual Thumbnail Sizing Mode (above). Sets the left/right image width as a percentage of the hover card width."
+  type: integer
+  min: 5
+  max: 50
+  description: Used only in manual mode. Sets the thumbnail width as a percentage of the hover card width.
 
 show_thumbnail_mobile:
-  type: bool
   default: true
-  description: "Display the topic thumbnail image on mobile."
+  type: bool
+  description: Display the topic thumbnail image on mobile.
 
 show_title:
-  type: bool
   default: true
-  description: "Display the topic title on desktop."
+  type: bool
+  description: Display the topic title on desktop.
 
 show_title_mobile:
-  type: bool
   default: true
-  description: "Display the topic title on mobile."
+  type: bool
+  description: Display the topic title on mobile.
 
 show_excerpt:
-  type: bool
   default: true
-  description: "Display a text excerpt on desktop."
-  
+  type: bool
+  description: Display a text excerpt on desktop.
+
 excerpt_length:
-  type: integer
   default: 3
+  type: integer
   min: 1
   max: 12
-  description: "Number of excerpt lines to show on desktop."
+  description: Number of excerpt lines to show on desktop.
 
 show_excerpt_mobile:
-  type: bool
   default: true
-  description: "Display a text excerpt on mobile."
+  type: bool
+  description: Display a text excerpt on mobile.
 
 excerpt_length_mobile:
+  default: 4
   type: integer
-  default: 3
   min: 1
   max: 12
-  description: "Number of excerpt lines to show on mobile."
+  description: Number of excerpt lines to show on mobile.
 
 show_category:
-  type: bool
   default: true
-  description: "Display the topic category badge on desktop when category data is available."
+  type: bool
+  description: Display the topic category badge on desktop.
 
 show_category_mobile:
-  type: bool
   default: true
-  description: "Display the topic category badge on mobile when category data is available."
+  type: bool
+  description: Display the topic category badge on mobile.
 
 show_tags:
-  type: bool
   default: true
-  description: "Display topic tags on desktop when tag data is available."
+  type: bool
+  description: Display topic tags on desktop.
 
 show_tags_mobile:
-  type: bool
   default: true
-  description: "Display topic tags on mobile when tag data is available."
+  type: bool
+  description: Display topic tags on mobile.
 
 show_op:
-  type: bool
   default: true
-  description: "Display the original poster avatar and username in the metadata row on desktop."
+  type: bool
+  description: Display the original poster avatar and username on desktop.
 
 show_op_mobile:
-  type: bool
   default: true
-  description: "Display the original poster avatar and username in the metadata row on mobile."
+  type: bool
+  description: Display the original poster avatar and username on mobile.
 
 show_publish_date:
-  type: bool
   default: true
-  description: "Display the topic creation date on desktop."
+  type: bool
+  description: Display the topic creation date on desktop.
 
 show_publish_date_mobile:
-  type: bool
   default: true
-  description: "Display the topic creation date on mobile."
+  type: bool
+  description: Display the topic creation date on mobile.
 
 show_views:
-  type: bool
   default: true
-  description: "Display the topic view count on desktop."
+  type: bool
+  description: Display the topic view count on desktop.
 
 show_views_mobile:
+  default: false
   type: bool
-  default: true
-  description: "Display the topic view count on mobile."
+  description: Display the topic view count on mobile.
 
 show_reply_count:
-  type: bool
   default: true
-  description: "Display the topic reply count on desktop."
+  type: bool
+  description: Display the topic reply count on desktop.
 
 show_reply_count_mobile:
-  type: bool
   default: true
-  description: "Display the topic reply count on mobile."
+  type: bool
+  description: Display the topic reply count on mobile.
 
 show_likes:
-  type: bool
   default: true
-  description: "Display the topic like count on desktop."
+  type: bool
+  description: Display the topic like count on desktop.
 
 show_likes_mobile:
+  default: false
   type: bool
-  default: true
-  description: "Display the topic like count on mobile."
+  description: Display the topic like count on mobile.
 
 show_activity:
-  type: bool
   default: true
-  description: "Display the most recent topic activity date on desktop."
+  type: bool
+  description: Display the most recent topic activity date on desktop.
 
 show_activity_mobile:
+  default: false
   type: bool
-  default: true
-  description: "Display the most recent topic activity date on mobile."
+  description: Display the most recent topic activity date on mobile.
 
 enable_on_topics:
-  type: bool
   default: true
-  description: "Show hover cards for internal topic links inside the original post."
+  type: bool
+  description: Show hover cards for internal topic links in the original post.
 
 enable_on_replies:
-  type: bool
   default: true
-  description: "Show hover cards for internal topic links inside replies."
+  type: bool
+  description: Show hover cards for internal topic links in replies.
 
 enable_on_topic_lists:
-  type: bool
   default: true
-  description: "Show hover cards for internal topic links shown in standard topic list views."
+  type: bool
+  description: Show hover cards for internal topic links in standard topic list views.
 
 enable_on_category_homepage_topic_lists:
-  type: bool
   default: true
-  description: "Show hover cards for internal topic links shown in topic-list areas on category homepage layouts."
+  type: bool
+  description: Show hover cards for topic-list areas on category homepage layouts.
 
 enable_on_doc_categories:
-  type: bool
   default: true
-  description: "Show hover cards for internal topic links inside Discourse Doc Categories views and navigation areas."
+  type: bool
+  description: Show hover cards for internal topic links in Discourse Doc Categories views.
 
 enable_on_kanban_boards:
-  type: bool
   default: true
-  description: "Show hover cards for internal topic links inside Discourse Kanban board cards and board views."
+  type: bool
+  description: Show hover cards for internal topic links in Discourse Kanban board views.
 
 enable_on_suggested_topic_links:
-  type: bool
   default: true
-  description: "Show hover cards for links in the suggested topics section."
+  type: bool
+  description: Show hover cards for links in the suggested topics section.
 
 user_preference_field_name:
+  default: disable_topic_hover_cards
   type: string
-  default: "disable_topic_hover_cards"
-  description: "Custom user field key used to disable hover cards per user. Supports direct keys, numeric IDs, and user_field_X keys."
+  description: Custom user field key used to disable hover cards per user.
 
 resolve_user_field_id_for_admins:
-  type: bool
   default: true
-  description: "When enabled, admins can configure the preference field by name or user_field_X; the component resolves the numeric user-field ID via /admin/config/user-fields.json."
+  type: bool
+  description: Resolve configured user field names to numeric IDs for staff using /admin/config/user-fields.json.
 
 topic_cache_max:
-  type: integer
   default: 100
+  type: integer
   min: 10
-  max: 1000
-  description: "Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session."
+  max: 500
+  description: Maximum number of topic JSON responses kept in the in-memory LRU cache.
 
 debug_mode:
-  type: bool
   default: false
-  description: "Log hover-card detection and user-field resolution details to the browser console for staff debugging."
+  type: bool
+  description: Log hover-card detection and user-field resolution details to the browser console.

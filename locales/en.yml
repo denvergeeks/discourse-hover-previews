@@ -3,13 +3,12 @@ en:
     description: "Shows rich hover preview cards for internal topic links across topics, replies, topic lists, the categories homepage, Doc Categories, Kanban boards, and suggested topics."
 
   settings:
-  
     card_delay_ms: "Hover Delay"
     card_delay_ms_description: "Delay in milliseconds before the hover card appears."
-  
+
     enable_on_mobile: "Enable on Mobile"
-    enable_on_mobile_description: "Enable tap-to-preview behavior on touch devices. If not enabled, all settings below for Mobile are ignored."
-    
+    enable_on_mobile_description: "Enable tap-to-preview behavior on touch devices. If not enabled, all mobile-specific settings are ignored."
+
     density: "Density on Desktop"
     density_description: "Controls desktop hover card density."
 
@@ -29,13 +28,13 @@ en:
     thumbnail_placement_description: "On desktop, choose where the thumbnail appears."
 
     thumbnail_size_mode: "Thumbnail Sizing Mode on Desktop"
-    thumbnail_size_mode_description: "On desktop, setting this to auto-fit-height matches the image height to the card height, and uses the setting Thumbnail Auto-Fit Max Width (below) to constrain the image width. Setting this to manual mode uses the setting Thumbnail Size as Percent (below)."
+    thumbnail_size_mode_description: "On desktop, auto-fit-height matches the image height to the card height and uses Thumbnail Auto-Fit Max Width to constrain width. Manual mode uses Thumbnail Size as Percent."
 
     thumbnail_auto_fit_max_width: "Thumbnail Auto-Fit Max Width on Desktop"
-    thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height Thumbnail Sizing Mode on Desktop (above). Sets the maximum width of the left/right thumbnail. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
+    thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height thumbnail sizing mode. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
 
     thumbnail_size_percent: "Thumbnail Size as Percent on Desktop"
-    thumbnail_size_percent_description: "Used only in manual Thumbnail Sizing Mode on Desktop (above). Sets the left/right image width as a percentage of the hover card width."
+    thumbnail_size_percent_description: "Used only in manual thumbnail sizing mode. Sets the left/right image width as a percentage of the hover card width."
 
     show_thumbnail_mobile: "Show Thumbnail on Mobile"
     show_thumbnail_mobile_description: "Display the topic thumbnail image on mobile."
@@ -49,13 +48,13 @@ en:
     show_excerpt: "Show Excerpt on Desktop"
     show_excerpt_description: "Display a text excerpt on desktop."
 
-    excerpt_length: "Excerpt Length on Desktop"
+    excerpt_length: "Excerpt Lines on Desktop"
     excerpt_length_description: "Number of excerpt lines to show on desktop."
 
     show_excerpt_mobile: "Show Excerpt on Mobile"
     show_excerpt_mobile_description: "Display a text excerpt on mobile."
 
-    excerpt_length_mobile: "Excerpt Length on Mobile"
+    excerpt_length_mobile: "Excerpt Lines on Mobile"
     excerpt_length_mobile_description: "Number of excerpt lines to show on mobile."
 
     show_category: "Show Category on Desktop"
@@ -131,10 +130,10 @@ en:
     user_preference_field_name_description: "Custom user field key used to disable hover cards per user. Supports direct keys, numeric IDs, and user_field_X keys."
 
     resolve_user_field_id_for_admins: "Resolve user field ID for admins"
-    resolve_user_field_id_for_admins_description: "When enabled, admins can configure the preference field by name or user_field_X; the component resolves the numeric user-field ID via /admin/config/user-fields.json."
+    resolve_user_field_id_for_admins_description: "When enabled, staff can configure the preference field by name or user_field_X; the component resolves the numeric user-field ID via /admin/config/user-fields.json."
 
     topic_cache_max: "Topic Cache Max"
     topic_cache_max_description: "Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session."
 
     debug_mode: "Debug Mode"
-    debug_mode_description: "Log hover-card detection and user-field resolution details to the browser console for staff debugging."
+    debug_mode_description: "Log hover-card detection and user-field resolution details to the browser console for debugging."
