@@ -101,7 +101,9 @@ async function getJSON(url, options = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed: ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Request failed: ${response.status} ${response.statusText}`
+    );
   }
 
   return await response.json();
@@ -230,15 +232,15 @@ function mobileBool(name, mobileName, isMobile) {
 
 function mobileInt(name, mobileName, fallback, isMobile) {
   const raw = isMobile
-    ? settings[mobileName] ?? settings[name] ?? fallback
-    : settings[name] ?? fallback;
+    ? (settings[mobileName] ?? settings[name] ?? fallback)
+    : (settings[name] ?? fallback);
   return numberSetting(raw, fallback);
 }
 
 function densitySetting(isMobile) {
   const value = isMobile
-    ? settings.density_mobile ?? settings.density ?? "default"
-    : settings.density ?? "default";
+    ? (settings.density_mobile ?? settings.density ?? "default")
+    : (settings.density ?? "default");
 
   return ["default", "cozy", "compact"].includes(value) ? value : "default";
 }
@@ -355,7 +357,9 @@ function isCurrentTopicLink(link) {
   const currentTopicId = currentTopicIdFromLocation();
   if (currentTopicId && parsed.topicId === currentTopicId) return true;
 
-  return parsed.url.pathname.replace(/\/+$/, "") === currentTopicPathFromLocation();
+  return (
+    parsed.url.pathname.replace(/\/+$/, "") === currentTopicPathFromLocation()
+  );
 }
 
 function isCookedPostFragmentLink(link) {
@@ -378,12 +382,16 @@ function isEligiblePreviewLink(link, config) {
 
   if (inCookedPost(link)) {
     if (isCurrentTopicLink(link)) {
-      logDebug(config, "Skipping current-topic cooked-post link", { href: link.href });
+      logDebug(config, "Skipping current-topic cooked-post link", {
+        href: link.href,
+      });
       return false;
     }
 
     if (isCookedPostFragmentLink(link)) {
-      logDebug(config, "Skipping cooked-post fragment link", { href: link.href });
+      logDebug(config, "Skipping cooked-post fragment link", {
+        href: link.href,
+      });
       return false;
     }
   }
@@ -393,8 +401,10 @@ function isEligiblePreviewLink(link, config) {
 
 function linkInSupportedArea(link, config) {
   if (!isEligiblePreviewLink(link, config)) return false;
-  if (settings.enable_on_suggested_topic_links && inSuggestedTopics(link)) return true;
-  if (settings.enable_on_doc_categories && inDocCategoriesView(link)) return true;
+  if (settings.enable_on_suggested_topic_links && inSuggestedTopics(link))
+    return true;
+  if (settings.enable_on_doc_categories && inDocCategoriesView(link))
+    return true;
   if (settings.enable_on_kanban_boards && inKanbanView(link)) return true;
   if (
     settings.enable_on_category_homepage_topic_lists &&
@@ -450,7 +460,11 @@ function buildCategoryHTML(topic, categories, isMobile) {
 
   const category = findCategoryById(categories, topic.category_id);
   const name =
-    category?.name || category?.slug || topic.category_name || topic.category_slug || "";
+    category?.name ||
+    category?.slug ||
+    topic.category_name ||
+    topic.category_slug ||
+    "";
 
   const rawColor = category?.color || topic.category_color || null;
   const color = rawColor ? `#${String(rawColor).replace(/^#/, "")}` : null;
@@ -505,9 +519,15 @@ function buildTitleHTML(topic, isMobile) {
 function buildExcerptHTML(topic, isMobile) {
   if (!mobileBool("show_excerpt", "show_excerpt_mobile", isMobile)) return "";
 
-  const lines = mobileInt("excerpt_length", "excerpt_length_mobile", 3, isMobile);
+  const lines = mobileInt(
+    "excerpt_length",
+    "excerpt_length_mobile",
+    3,
+    isMobile
+  );
   const firstPost = topic.post_stream?.posts?.[0];
-  const excerptSource = topic.excerpt || firstPost?.excerpt || firstPost?.cooked || "";
+  const excerptSource =
+    topic.excerpt || firstPost?.excerpt || firstPost?.cooked || "";
   const cleanedExcerpt = topic.__thc_excerpt ?? sanitizeExcerpt(excerptSource);
   topic.__thc_excerpt = cleanedExcerpt;
   const finalExcerpt = cleanedExcerpt.length >= 20 ? cleanedExcerpt : "";
@@ -540,7 +560,8 @@ function buildOpHTML(topic, isMobile) {
 }
 
 function buildPublishDateHTML(topic, isMobile) {
-  if (!mobileBool("show_publish_date", "show_publish_date_mobile", isMobile)) return "";
+  if (!mobileBool("show_publish_date", "show_publish_date_mobile", isMobile))
+    return "";
   if (!topic.created_at) return "";
 
   const d = new Date(topic.created_at);
@@ -567,7 +588,8 @@ function buildStatsHTML(topic, isMobile) {
   }
 
   if (mobileBool("show_reply_count", "show_reply_count_mobile", isMobile)) {
-    const replyCount = topic.reply_count ?? Math.max((topic.posts_count ?? 1) - 1, 0);
+    const replyCount =
+      topic.reply_count ?? Math.max((topic.posts_count ?? 1) - 1, 0);
     stats.push(
       `<span class="topic-hover-card__stat">${discourseIcon("comment")} ${escapeHTML(
         formatNumber(replyCount)
@@ -584,7 +606,10 @@ function buildStatsHTML(topic, isMobile) {
     );
   }
 
-  if (mobileBool("show_activity", "show_activity_mobile", isMobile) && topic.last_posted_at) {
+  if (
+    mobileBool("show_activity", "show_activity_mobile", isMobile) &&
+    topic.last_posted_at
+  ) {
     const d = new Date(topic.last_posted_at);
     if (!Number.isNaN(d.getTime())) {
       const fmt = d.toLocaleDateString(undefined, {
@@ -600,7 +625,9 @@ function buildStatsHTML(topic, isMobile) {
     }
   }
 
-  return stats.length ? `<div class="topic-hover-card__stats">${stats.join("")}</div>` : "";
+  return stats.length
+    ? `<div class="topic-hover-card__stats">${stats.join("")}</div>`
+    : "";
 }
 
 function buildMetadataHTML(topic, isMobile) {
@@ -610,7 +637,9 @@ function buildMetadataHTML(topic, isMobile) {
     buildStatsHTML(topic, isMobile),
   ]);
 
-  return content ? `<div class="topic-hover-card__metadata">${content}</div>` : "";
+  return content
+    ? `<div class="topic-hover-card__metadata">${content}</div>`
+    : "";
 }
 
 function buildMobileActionsHTML(topic, isMobile) {
@@ -622,8 +651,15 @@ function buildMobileActionsHTML(topic, isMobile) {
 }
 
 function buildCardHTML(topic, categories, isMobile = false) {
-  const showThumbnail = mobileBool("show_thumbnail", "show_thumbnail_mobile", isMobile);
-  const desktopThumbnailSizePercent = numberSetting(settings.thumbnail_size_percent, 15);
+  const showThumbnail = mobileBool(
+    "show_thumbnail",
+    "show_thumbnail_mobile",
+    isMobile
+  );
+  const desktopThumbnailSizePercent = numberSetting(
+    settings.thumbnail_size_percent,
+    15
+  );
   const autoFitMaxWidth = stringSetting(
     settings.thumbnail_auto_fit_max_width,
     "10rem"
@@ -647,7 +683,9 @@ function buildCardHTML(topic, categories, isMobile = false) {
     : "";
 
   const thumbnail =
-    topic.image_url && showThumbnail ? buildThumbnailHTML(topic, sizeMode, isMobile) : "";
+    topic.image_url && showThumbnail
+      ? buildThumbnailHTML(topic, sizeMode, isMobile)
+      : "";
 
   const bodyInner = `
     <div class="topic-hover-card__body">
@@ -738,7 +776,10 @@ export default apiInitializer((api) => {
     }
 
     tooltip.style.setProperty("--thc-width", config.cardWidth);
-    tooltip.style.setProperty("--thc-mobile-width", `${config.mobileWidthPercent}vw`);
+    tooltip.style.setProperty(
+      "--thc-mobile-width",
+      `${config.mobileWidthPercent}vw`
+    );
   }
 
   function positionTooltip(anchorRect) {
@@ -747,7 +788,10 @@ export default apiInitializer((api) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const cardH = tooltip.offsetHeight || 320;
-    const cardW = Math.min(tooltip.offsetWidth || 512, vw - VIEWPORT_MARGIN * 2);
+    const cardW = Math.min(
+      tooltip.offsetWidth || 512,
+      vw - VIEWPORT_MARGIN * 2
+    );
 
     let top = anchorRect.bottom + 10;
     let isAbove = false;
@@ -854,7 +898,10 @@ export default apiInitializer((api) => {
     ensureTooltip();
     cancel(hideTimer);
 
-    if (currentTopicId === topicId && tooltip.classList.contains("is-visible")) {
+    if (
+      currentTopicId === topicId &&
+      tooltip.classList.contains("is-visible")
+    ) {
       positionTooltipNextFrame(anchorRect);
       return;
     }
@@ -866,7 +913,9 @@ export default apiInitializer((api) => {
     const isMobile = viewport.isMobileLayout();
     const cachedTopic = getCachedValue(topicCache, topicId);
 
-    tooltip.innerHTML = cachedTopic ? getRenderedCard(cachedTopic, isMobile) : skeletonHTML();
+    tooltip.innerHTML = cachedTopic
+      ? getRenderedCard(cachedTopic, isMobile)
+      : skeletonHTML();
     tooltip.classList.add("is-visible");
     positionTooltipNextFrame(anchorRect);
 
@@ -903,20 +952,34 @@ export default apiInitializer((api) => {
 
     resolvedUserFieldIdPromise = getJSON("/admin/config/user-fields.json")
       .then((result) => {
-        const fields = Array.isArray(result) ? result : result?.user_fields || [];
-        const wanted = String(config.userPreferenceFieldName).trim().toLowerCase();
+        const fields = Array.isArray(result)
+          ? result
+          : result?.user_fields || [];
+        const wanted = String(config.userPreferenceFieldName)
+          .trim()
+          .toLowerCase();
 
         const match = fields.find((field) => {
           const id = field?.id;
-          const name = String(field?.name || "").trim().toLowerCase();
-          return name === wanted || `user_field_${id}` === wanted || String(id) === wanted;
+          const name = String(field?.name || "")
+            .trim()
+            .toLowerCase();
+          return (
+            name === wanted ||
+            `user_field_${id}` === wanted ||
+            String(id) === wanted
+          );
         });
 
         resolvedUserFieldId = match?.id ?? null;
         return resolvedUserFieldId;
       })
       .catch((error) => {
-        logDebug(config, "Could not resolve user-field ID from admin endpoint", error);
+        logDebug(
+          config,
+          "Could not resolve user-field ID from admin endpoint",
+          error
+        );
         resolvedUserFieldId = null;
         return null;
       })
@@ -942,7 +1005,9 @@ export default apiInitializer((api) => {
   async function hoverCardsDisabledForUser() {
     if (!currentUser || !config.userPreferenceFieldName) return false;
 
-    const directCandidates = normalizedFieldKeyVariants(config.userPreferenceFieldName);
+    const directCandidates = normalizedFieldKeyVariants(
+      config.userPreferenceFieldName
+    );
     const currentUserCustomFields = currentUser?.custom_fields || {};
     const currentUserUserFields = currentUser?.user_fields || {};
 
@@ -952,7 +1017,9 @@ export default apiInitializer((api) => {
     if (match) return true;
 
     const resolvedId = await resolveUserFieldIdForAdmins();
-    const resolvedCandidates = resolvedId ? normalizedFieldKeyVariants(resolvedId) : [];
+    const resolvedCandidates = resolvedId
+      ? normalizedFieldKeyVariants(resolvedId)
+      : [];
 
     if (resolvedCandidates.length) {
       match =
@@ -1064,7 +1131,11 @@ export default apiInitializer((api) => {
 
     if (suppressNextClick) {
       const link = event.target.closest("a[href]");
-      if (link && linkInSupportedArea(link, config) && topicIdFromHref(link.href)) {
+      if (
+        link &&
+        linkInSupportedArea(link, config) &&
+        topicIdFromHref(link.href)
+      ) {
         event.preventDefault();
         event.stopPropagation();
         suppressNextClick = false;
@@ -1078,7 +1149,8 @@ export default apiInitializer((api) => {
   }
 
   function onScroll(event) {
-    if (event.target?.closest?.(".topic-hover-card, .topic-hover-card-tooltip")) return;
+    if (event.target?.closest?.(".topic-hover-card, .topic-hover-card-tooltip"))
+      return;
     cancel(showTimer);
     hideCard();
     suppressNextClick = false;
