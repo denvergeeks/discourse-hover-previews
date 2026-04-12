@@ -621,9 +621,11 @@ function buildCardHTML(topic, categories, isMobile = false) {
       : "topic-hover-card--thumb-size-manual";
 
   const mobileCloseButton = isMobile
-    ? `<button class="topic-hover-card__close" type="button" data-thc-close aria-label="Close preview">${discourseIcon(
-        "times"
-      )}</button>`
+    ? `<button class="topic-hover-card__close" type="button" data-thc-close aria-label="Close preview">
+        <svg class="topic-hover-card__close-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8" />
+        </svg>
+      </button>`
     : "";
 
   const thumbnail =
