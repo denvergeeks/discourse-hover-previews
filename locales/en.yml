@@ -20,9 +20,9 @@ en:
     card_width_description: "Any valid CSS width value, such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem)."
 
     mobile_width_percent: "Mobile Width Percent"
-    mobile_width_percent_description: "Controls the mobile preview width as a percentage of the viewport width."
+    mobile_width_percent_description: "Controls the mobile hover card width as a percentage of the viewport width."
 
-    show_thumbnail: "Show Thumbnail on Desptop"
+    show_thumbnail: "Show Thumbnail on Desktop"
     show_thumbnail_description: "Display the topic thumbnail image on desktop."
 
     thumbnail_placement: "Thumbnail Placement on Desktop"
