@@ -17,7 +17,7 @@ density:
     - default
     - cozy
     - compact
-  description: Controls desktop hover card density.
+  description: Controls hover card density on desktop.
 
 density_mobile:
   default: cozy
@@ -26,24 +26,24 @@ density_mobile:
     - default
     - cozy
     - compact
-  description: Controls mobile hover card density.
+  description: Controls hover card density on mobile.
 
 card_width:
   default: 32rem
   type: string
-  description: Any valid CSS width value such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem).
+  description: Desktop hover card width. Accepts any valid CSS width value such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem).
 
 mobile_width_percent:
   default: 100
   type: integer
   min: 70
   max: 100
-  description: Controls the mobile hover card width as a percentage of the viewport width.
+  description: Mobile hover card width as a percentage of the viewport width.
 
 show_thumbnail:
   default: true
   type: bool
-  description: Display the topic thumbnail image on desktop.
+  description: Show the topic thumbnail image on desktop.
 
 thumbnail_placement:
   default: left
@@ -53,7 +53,7 @@ thumbnail_placement:
     - right
     - bottom
     - left
-  description: Choose where the thumbnail appears on desktop.
+  description: Thumbnail placement on desktop (top, right, bottom, or left of card content).
 
 thumbnail_size_mode:
   default: auto_fit_height
@@ -66,7 +66,7 @@ thumbnail_size_mode:
 thumbnail_auto_fit_max_width:
   default: 10rem
   type: string
-  description: Used only in auto-fit-height mode. Accepts any valid CSS width such as 8rem, 160px, or 12vw.
+  description: Used only in auto-fit-height mode. Accepts any valid CSS width value such as 8rem, 160px, or 12vw.
 
 thumbnail_size_percent:
   default: 15
@@ -78,22 +78,22 @@ thumbnail_size_percent:
 show_thumbnail_mobile:
   default: true
   type: bool
-  description: Display the topic thumbnail image on mobile.
+  description: Show the topic thumbnail image on mobile.
 
 show_title:
   default: true
   type: bool
-  description: Display the topic title on desktop.
+  description: Show the topic title on desktop.
 
 show_title_mobile:
   default: true
   type: bool
-  description: Display the topic title on mobile.
+  description: Show the topic title on mobile.
 
 show_excerpt:
   default: true
   type: bool
-  description: Display a text excerpt on desktop.
+  description: Show a text excerpt on desktop.
 
 excerpt_length:
   default: 3
@@ -105,10 +105,10 @@ excerpt_length:
 show_excerpt_mobile:
   default: true
   type: bool
-  description: Display a text excerpt on mobile.
+  description: Show a text excerpt on mobile.
 
 excerpt_length_mobile:
-  default: 4
+  default: 3
   type: integer
   min: 1
   max: 12
@@ -117,82 +117,82 @@ excerpt_length_mobile:
 show_category:
   default: true
   type: bool
-  description: Display the topic category badge on desktop when category data is available.
+  description: Show the topic category badge on desktop when category data is available.
 
 show_category_mobile:
   default: true
   type: bool
-  description: Display the topic category badge on mobile when category data is available.
+  description: Show the topic category badge on mobile when category data is available.
 
 show_tags:
   default: true
   type: bool
-  description: Display topic tags on desktop when tag data is available.
+  description: Show topic tags on desktop when tag data is available.
 
 show_tags_mobile:
   default: true
   type: bool
-  description: Display topic tags on mobile when tag data is available.
+  description: Show topic tags on mobile when tag data is available.
 
 show_op:
   default: true
   type: bool
-  description: Display the original poster avatar and username in the metadata row on desktop.
+  description: Show the original poster avatar and username on desktop.
 
 show_op_mobile:
   default: true
   type: bool
-  description: Display the original poster avatar and username in the metadata row on mobile.
+  description: Show the original poster avatar and username on mobile.
 
 show_publish_date:
   default: true
   type: bool
-  description: Display the topic creation date on desktop.
+  description: Show the topic creation date on desktop.
 
 show_publish_date_mobile:
   default: true
   type: bool
-  description: Display the topic creation date on mobile.
+  description: Show the topic creation date on mobile.
 
 show_views:
   default: true
   type: bool
-  description: Display the topic view count on desktop.
+  description: Show the topic view count on desktop.
 
 show_views_mobile:
   default: true
   type: bool
-  description: Display the topic view count on mobile.
+  description: Show the topic view count on mobile.
 
 show_reply_count:
   default: true
   type: bool
-  description: Display the topic reply count on desktop.
+  description: Show the topic reply count on desktop.
 
 show_reply_count_mobile:
   default: true
   type: bool
-  description: Display the topic reply count on mobile.
+  description: Show the topic reply count on mobile.
 
 show_likes:
   default: true
   type: bool
-  description: Display the topic like count on desktop.
+  description: Show the topic like count on desktop.
 
 show_likes_mobile:
   default: true
   type: bool
-  description: Display the topic like count on mobile.
+  description: Show the topic like count on mobile.
 
 show_activity:
   default: true
   type: bool
-  description: Display the last activity date on desktop.
+  description: Show the last activity date on desktop.
 
 show_activity_mobile:
   default: true
   type: bool
-  description: Display the last activity date on mobile.
+  description: Show the last activity date on mobile.
 
 enable_on_topics:
   default: true
@@ -232,7 +232,7 @@ enable_on_suggested_topic_links:
 user_preference_field_name:
   default: disable_topic_hover_cards
   type: string
-  description: Custom user field key used to disable hover cards per user. Supports direct keys, numeric IDs, and user_field_X keys.
+  description: Custom user field key used to disable hover cards per user. Supports direct keys, numeric IDs, and user_field_X format.
 
 resolve_user_field_id_for_admins:
   default: true
@@ -242,7 +242,7 @@ resolve_user_field_id_for_admins:
 topic_cache_max:
   default: 100
   type: integer
-  min: 0
+  min: 10
   max: 500
   description: Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session.
 
