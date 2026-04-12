@@ -3,11 +3,6 @@ card_width:
   default: "32rem"
   description: "Any valid CSS width value, such as 32rem, 420px, 40vw, or clamp(20rem, 40vw, 36rem)."
 
-card_max_height:
-  type: string
-  default: "10rem"
-  description: "Any valid CSS max-height value, such as 10rem, 480px, 50vh, or min(60vh, 32rem)."
-
 card_delay_ms:
   type: integer
   default: 300
@@ -19,7 +14,7 @@ topic_cache_max:
   type: integer
   default: 100
   min: 10
-  max: 500
+  max: 1000
   description: "Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session."
 
 enable_on_mobile:
