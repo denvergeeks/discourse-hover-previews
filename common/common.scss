@@ -176,8 +176,11 @@
 .topic-hover-card--thumb-left.topic-hover-card--thumb-size-auto-fit-height .topic-hover-card__thumbnail,
 .topic-hover-card--thumb-right.topic-hover-card--thumb-size-auto-fit-height .topic-hover-card__thumbnail {
   position: relative;
-  flex: 0 0 var(--thc-auto-thumb-width, 10rem);
-  width: var(--thc-auto-thumb-width, 10rem);
+  flex: 0 0 var(--thc-auto-thumb-max-width, 10rem);
+  width: var(--thc-auto-thumb-max-width, 10rem);
+  min-width: 5rem;
+  max-width: 45%;
+  align-self: stretch;
   min-width: 5rem;
   max-width: 45%;
   align-self: stretch;

@@ -788,9 +788,11 @@ function buildCardHTML(topic, site, isMobile = false) {
       ${mobileActions}
   `;
 
-  const wrapperStyle = isMobile
-    ? ""
-    : `style="--thc-image-size-percent:${desktopImageSizePercent}; --thc-auto-thumb-width: 10rem;"`;
+const autoFitMaxWidth = settings.thumbnail_auto_fit_max_width || "10rem";
+
+const wrapperStyle = isMobile
+  ? ""
+  : `style="--thc-image-size-percent:${desktopImageSizePercent}; --thc-auto-thumb-max-width:${autoFitMaxWidth};"`;
 
   switch (placement) {
     case "left":
