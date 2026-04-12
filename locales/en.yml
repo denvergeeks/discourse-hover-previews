@@ -22,55 +22,55 @@ en:
     mobile_width_percent: "Mobile Width Percent"
     mobile_width_percent_description: "Controls the mobile preview width as a percentage of the viewport width."
 
-    show_thumbnail: "Show Thumbnail"
+    show_thumbnail: "Show Thumbnail on Desptop"
     show_thumbnail_description: "Display the topic thumbnail image on desktop."
 
-    thumbnail_placement: "Thumbnail Placement"
-    thumbnail_placement_description: "Choose where the thumbnail appears."
+    thumbnail_placement: "Thumbnail Placement on Desktop"
+    thumbnail_placement_description: "On desktop, choose where the thumbnail appears."
 
-    thumbnail_size_mode: "Thumbnail Sizing Mode"
-    thumbnail_size_mode_description: "Setting this to auto-fit-height matches the image height to the card height, and uses the setting Thumbnail Auto-Fit Max Width (below) to constrain the image width. Setting this to manual mode uses the setting Thumbnail Size as Percent (below)."
+    thumbnail_size_mode: "Thumbnail Sizing Mode on Desktop"
+    thumbnail_size_mode_description: "On desktop, setting this to auto-fit-height matches the image height to the card height, and uses the setting Thumbnail Auto-Fit Max Width (below) to constrain the image width. Setting this to manual mode uses the setting Thumbnail Size as Percent (below)."
 
-    thumbnail_auto_fit_max_width: "Thumbnail Auto-Fit Max Width"
-    thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height Thumbnail Sizing Mode (above). Sets the maximum width of the left/right thumbnail. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
+    thumbnail_auto_fit_max_width: "Thumbnail Auto-Fit Max Width on Desktop"
+    thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height Thumbnail Sizing Mode on Desktop (above). Sets the maximum width of the left/right thumbnail. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
 
-    thumbnail_size_percent: "Thumbnail Size as Percent"
-    thumbnail_size_percent_description: "Used only in manual Thumbnail Sizing Mode (above). Sets the left/right image width as a percentage of the hover card width."
+    thumbnail_size_percent: "Thumbnail Size as Percent on Desktop"
+    thumbnail_size_percent_description: "Used only in manual Thumbnail Sizing Mode on Desktop (above). Sets the left/right image width as a percentage of the hover card width."
 
     show_thumbnail_mobile: "Show Thumbnail on Mobile"
     show_thumbnail_mobile_description: "Display the topic thumbnail image on mobile."
 
-    show_category: "Show Category"
-    show_category_description: "Display the topic category badge on desktop when category data is available."
-
-    show_category_mobile: "Show Category on Mobile"
-    show_category_mobile_description: "Display the topic category badge on mobile when category data is available."
-
-    show_tags: "Show Tags"
-    show_tags_description: "Display topic tags on desktop when tag data is available."
-
-    show_tags_mobile: "Show Tags on Mobile"
-    show_tags_mobile_description: "Display topic tags on mobile when tag data is available."
-
-    show_title: "Show Title"
+    show_title: "Show Title on Desktop"
     show_title_description: "Display the topic title on desktop."
 
     show_title_mobile: "Show Title on Mobile"
     show_title_mobile_description: "Display the topic title on mobile."
 
-    show_excerpt: "Show Excerpt"
+    show_excerpt: "Show Excerpt on Desktop"
     show_excerpt_description: "Display a text excerpt on desktop."
+    
+    excerpt_length: "Excerpt Length on Desktop"
+    excerpt_length_description: "Number of excerpt lines to show on desktop."
 
     show_excerpt_mobile: "Show Excerpt on Mobile"
     show_excerpt_mobile_description: "Display a text excerpt on mobile."
 
-    excerpt_length: "Excerpt Length"
-    excerpt_length_description: "Number of excerpt lines to show on desktop."
-
     excerpt_length_mobile: "Excerpt Length on Mobile"
     excerpt_length_mobile_description: "Number of excerpt lines to show on mobile."
 
-    show_op: "Show Original Poster"
+    show_category: "Show Category on Desktop"
+    show_category_description: "Display the topic category badge on desktop when category data is available."
+
+    show_category_mobile: "Show Category on Mobile"
+    show_category_mobile_description: "Display the topic category badge on mobile when category data is available."
+
+    show_tags: "Show Tags on Desktop"
+    show_tags_description: "Display topic tags on desktop when tag data is available."
+
+    show_tags_mobile: "Show Tags on Mobile"
+    show_tags_mobile_description: "Display topic tags on mobile when tag data is available."
+
+    show_op: "Show Original Poster on Desktop"
     show_op_description: "Display the original poster avatar and username in the metadata row on desktop."
 
     show_op_mobile: "Show Original Poster on Mobile"
@@ -82,25 +82,25 @@ en:
     show_publish_date_mobile: "Show Publish Date on Mobile"
     show_publish_date_mobile_description: "Display the topic creation date on mobile."
 
-    show_views: "Show Number of Views"
+    show_views: "Show Number of Views on Desktop"
     show_views_description: "Display the topic view count on desktop."
 
     show_views_mobile: "Show Number of Views on Mobile"
     show_views_mobile_description: "Display the topic view count on mobile."
 
-    show_reply_count: "Show Reply Count"
+    show_reply_count: "Show Reply Count on Desktop"
     show_reply_count_description: "Display the topic reply count on desktop."
 
     show_reply_count_mobile: "Show Reply Count on Mobile"
     show_reply_count_mobile_description: "Display the topic reply count on mobile."
 
-    show_likes: "Show Number of Likes"
+    show_likes: "Show Number of Likes on Desktop"
     show_likes_description: "Display the topic like count on desktop."
 
     show_likes_mobile: "Show Number of Likes on Mobile"
     show_likes_mobile_description: "Display the topic like count on mobile."
 
-    show_activity: "Show Last Activity"
+    show_activity: "Show Last Activity on Desktop"
     show_activity_description: "Display the most recent topic activity date on desktop."
 
     show_activity_mobile: "Show Last Activity on Mobile"
