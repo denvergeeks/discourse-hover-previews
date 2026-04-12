@@ -15,6 +15,13 @@ card_delay_ms:
   max: 5000
   description: "Delay in milliseconds before the hover card appears."
 
+topic_cache_max:
+  type: integer
+  default: 100
+  min: 10
+  max: 500
+  description: "Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session."
+
 enable_on_mobile:
   type: bool
   default: false
