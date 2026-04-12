@@ -7,6 +7,7 @@ const CARD_WIDTH = settings.card_width || "32rem";
 const CARD_MAX_H = settings.card_max_height || "10rem";
 const MOBILE_ENABLED = settings.enable_on_mobile ?? false;
 const MOBILE_WIDTH_PERCENT = settings.mobile_width_percent ?? 100;
+const TOPIC_CACHE_MAX = settings.topic_cache_max ?? 100;
 const USER_PREFERENCE_FIELD_NAME =
   settings.user_preference_field_name || "disable_topic_hover_cards";
 const DEBUG_MODE = settings.debug_mode ?? false;
@@ -15,10 +16,6 @@ const RESOLVE_USER_FIELD_ID_FOR_ADMINS =
 const VIEWPORT_MARGIN = 12;
 
 const TOPIC_LINK_RE = /\/t\/(?:[^/]+\/)?([0-9]+)(?:\/[0-9]+)?/;
-
-function isTouchDevice() {
-  return window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-}
 
 function isMobileView() {
   const hasHover =
@@ -205,6 +202,31 @@ function findTruthyFieldMatch(record, candidateKeys) {
   }
 
   return null;
+}
+
+function getCachedTopic(cache, topicId) {
+  if (!cache.has(topicId)) {
+    return null;
+  }
+
+  const value = cache.get(topicId);
+
+  cache.delete(topicId);
+  cache.set(topicId, value);
+
+  return value;
+}
+
+function setCachedTopic(cache, topicId, topic) {
+  if (cache.has(topicId)) {
+    cache.delete(topicId);
+  }
+
+  cache.set(topicId, topic);
+
+  if (cache.size > TOPIC_CACHE_MAX) {
+    cache.delete(cache.keys().next().value);
+  }
 }
 
 let resolvedUserFieldIdPromise = null;
@@ -751,7 +773,7 @@ export default apiInitializer((api) => {
     let showTimer = null;
     let hideTimer = null;
     let currentTopicId = null;
-    let topicCache = {};
+    let topicCache = new Map();
     let isInsideCard = false;
     let suppressNextClick = false;
 
@@ -853,17 +875,18 @@ export default apiInitializer((api) => {
 
       currentTopicId = topicId;
       const mobile = isMobileLayout();
+      const cachedTopic = getCachedTopic(topicCache, topicId);
 
-      if (topicCache[topicId]) {
-        tooltip.innerHTML = buildCardHTML(topicCache[topicId], site, mobile);
+      if (cachedTopic) {
+        tooltip.innerHTML = buildCardHTML(cachedTopic, site, mobile);
         observeCardHeight(tooltip);
       } else {
         tooltip.innerHTML = skeletonHTML();
         observeCardHeight(tooltip);
+
         fetchTopic(topicId)
           .then((data) => {
             if (currentTopicId === topicId) {
-              topicCache[topicId] = data;
               tooltip.innerHTML = buildCardHTML(data, site, isMobileLayout());
               observeCardHeight(tooltip);
               positionTooltip(anchorRect);
@@ -905,9 +928,11 @@ export default apiInitializer((api) => {
     }
 
     async function fetchTopic(topicId) {
-      if (topicCache[topicId]) return topicCache[topicId];
+      const cachedTopic = getCachedTopic(topicCache, topicId);
+      if (cachedTopic) return cachedTopic;
+
       const data = await getJSON(`/t/${topicId}.json`);
-      topicCache[topicId] = data;
+      setCachedTopic(topicCache, topicId, data);
       return data;
     }
 
@@ -1052,6 +1077,7 @@ export default apiInitializer((api) => {
 
     debugLog("Hover cards initialized", {
       mobileEnabled: MOBILE_ENABLED,
+      topicCacheMax: TOPIC_CACHE_MAX,
       configuredField: USER_PREFERENCE_FIELD_NAME,
       currentViewportIsMobile: isMobileView(),
       locations: {
