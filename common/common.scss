@@ -243,7 +243,7 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .topic-hover-card__metadata {
