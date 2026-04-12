@@ -6,9 +6,6 @@ en:
     card_width: "Card width"
     card_width_description: "Any valid CSS width value, such as 32rem, 420px, 40vw, or clamp(20rem, 40vw, 36rem)."
 
-    card_max_height: "Card max height"
-    card_max_height_description: "Any valid CSS max-height value, such as 10rem, 480px, 50vh, or min(60vh, 32rem)."
-
     card_delay_ms: "Hover delay"
     card_delay_ms_description: "Delay in milliseconds before the hover card appears."
 
