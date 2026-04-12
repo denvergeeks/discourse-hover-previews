@@ -92,6 +92,14 @@ thumbnail_placement:
     - bottom
   description: "Choose where the thumbnail appears."
 
+thumbnail_size_mode:
+  type: enum
+  default: auto_fit_height
+  choices:
+    - manual
+    - auto_fit_height
+  description: "Manual uses Image size percent. Auto fit height adjusts left/right thumbnail width automatically to show the full image at the card body's height."
+
 density:
   type: enum
   default: default
@@ -112,10 +120,10 @@ density_mobile:
 
 image_size_percent:
   type: integer
-  default: 30
-  min: 15
+  default: 15
+  min: 10
   max: 60
-  description: "Sets the image size as a percentage of the hover card size."
+  description: "Used only in manual thumbnail size mode. Sets the left/right image width as a percentage of the hover card width."
 
 mobile_width_percent:
   type: integer

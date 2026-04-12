@@ -173,6 +173,13 @@ function densitySetting(isMobile) {
   return ["default", "cozy", "compact"].includes(value) ? value : "default";
 }
 
+function thumbnailSizeMode() {
+  const value = settings.thumbnail_size_mode ?? "auto_fit_height";
+  return ["manual", "auto_fit_height"].includes(value)
+    ? value
+    : "auto_fit_height";
+}
+
 function debugLog(...args) {
   if (!DEBUG_MODE) return;
   console.info("[topic-hover-cards]", ...args);
@@ -518,6 +525,28 @@ function isTopicAnchor(link) {
   return isEligiblePreviewLink(link);
 }
 
+function buildThumbnailHTML(topic, mode, isMobile) {
+  if (!topic.image_url) {
+    return "";
+  }
+
+  if (isMobile || mode === "manual") {
+    return `
+      <div class="topic-hover-card__thumbnail">
+        <img src="${topic.image_url}" alt="" loading="lazy">
+      </div>
+    `;
+  }
+
+  return `
+    <div class="topic-hover-card__thumbnail">
+      <img class="topic-hover-card__thumbnail-bg" src="${topic.image_url}" alt="" loading="lazy" aria-hidden="true">
+      <span class="topic-hover-card__thumbnail-overlay" aria-hidden="true"></span>
+      <img class="topic-hover-card__thumbnail-fg" src="${topic.image_url}" alt="" loading="lazy">
+    </div>
+  `;
+}
+
 function buildCardHTML(topic, site, isMobile = false) {
   const topicUrl = `${window.location.origin}/t/${topic.slug || topic.id}/${topic.id}`;
 
@@ -564,12 +593,16 @@ function buildCardHTML(topic, site, isMobile = false) {
     isMobile
   );
 
-  const desktopImageSizePercent = settings.image_size_percent ?? 30;
-
+  const desktopImageSizePercent = settings.image_size_percent ?? 15;
   const configuredPlacement = settings.thumbnail_placement || "left";
   const placement = isMobile ? "top" : configuredPlacement;
   const density = densitySetting(isMobile);
   const densityClass = `topic-hover-card--density-${density}`;
+  const sizeMode = isMobile ? "manual" : thumbnailSizeMode();
+  const sizeModeClass =
+    sizeMode === "auto_fit_height"
+      ? "topic-hover-card--thumb-size-auto-fit-height"
+      : "topic-hover-card--thumb-size-manual";
 
   const mobileCloseButton = isMobile
     ? `<button class="topic-hover-card__close" type="button" data-thc-close aria-label="Close preview">
@@ -579,9 +612,7 @@ function buildCardHTML(topic, site, isMobile = false) {
 
   const thumbnail =
     topic.image_url && showThumbnail
-      ? `<div class="topic-hover-card__thumbnail">
-           <img src="${topic.image_url}" alt="" loading="lazy">
-         </div>`
+      ? buildThumbnailHTML(topic, sizeMode, isMobile)
       : "";
 
   let categoryHTML = "";
@@ -764,7 +795,7 @@ function buildCardHTML(topic, site, isMobile = false) {
   switch (placement) {
     case "left":
       return `
-        <div class="topic-hover-card topic-hover-card--thumb-left ${densityClass}" ${wrapperStyle}>
+        <div class="topic-hover-card topic-hover-card--thumb-left ${sizeModeClass} ${densityClass}" ${wrapperStyle}>
           ${thumbnail}
           <div class="topic-hover-card__body">
             ${bodyInner}
@@ -773,7 +804,7 @@ function buildCardHTML(topic, site, isMobile = false) {
 
     case "right":
       return `
-        <div class="topic-hover-card topic-hover-card--thumb-right ${densityClass}" ${wrapperStyle}>
+        <div class="topic-hover-card topic-hover-card--thumb-right ${sizeModeClass} ${densityClass}" ${wrapperStyle}>
           ${thumbnail}
           <div class="topic-hover-card__body">
             ${bodyInner}
@@ -782,7 +813,7 @@ function buildCardHTML(topic, site, isMobile = false) {
 
     case "bottom":
       return `
-        <div class="topic-hover-card topic-hover-card--thumb-bottom ${densityClass}" ${wrapperStyle}>
+        <div class="topic-hover-card topic-hover-card--thumb-bottom ${sizeModeClass} ${densityClass}" ${wrapperStyle}>
           <div class="topic-hover-card__body">
             ${bodyInner}
           </div>
@@ -792,7 +823,7 @@ function buildCardHTML(topic, site, isMobile = false) {
     case "top":
     default:
       return `
-        <div class="topic-hover-card topic-hover-card--thumb-top ${densityClass}" ${wrapperStyle}>
+        <div class="topic-hover-card topic-hover-card--thumb-top ${sizeModeClass} ${densityClass}" ${wrapperStyle}>
           ${thumbnail}
           <div class="topic-hover-card__body">
             ${bodyInner}
@@ -1124,6 +1155,7 @@ export default apiInitializer((api) => {
       mobileEnabled: MOBILE_ENABLED,
       topicCacheMax: TOPIC_CACHE_MAX,
       configuredField: USER_PREFERENCE_FIELD_NAME,
+      thumbnailSizeMode: thumbnailSizeMode(),
       currentViewportIsMobile: isMobileView(),
       locations: {
         topics: settings.enable_on_topics,

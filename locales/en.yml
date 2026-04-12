@@ -54,6 +54,9 @@ en:
     thumbnail_placement: "Thumbnail placement"
     thumbnail_placement_description: "Choose where the thumbnail appears."
 
+    thumbnail_size_mode: "Thumbnail size mode"
+    thumbnail_size_mode_description: "Manual uses Image size percent. Auto fit height adjusts left/right thumbnail width automatically to show the full image at the card body's height."
+
     density: "Density"
     density_description: "Controls desktop hover card density. Matches the relative options used by Density Toggle: default, cozy, and compact."
 
@@ -61,7 +64,7 @@ en:
     density_mobile_description: "Controls mobile hover card density. Matches the relative options used by Density Toggle: default, cozy, and compact."
 
     image_size_percent: "Image size percent"
-    image_size_percent_description: "Sets the image size as a percentage of the hover card size."
+    image_size_percent_description: "Used only in manual thumbnail size mode. Sets the left/right image width as a percentage of the hover card width."
 
     mobile_width_percent: "Mobile width percent"
     mobile_width_percent_description: "Controls the mobile preview width as a percentage of the viewport width."
