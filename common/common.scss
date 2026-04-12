@@ -42,14 +42,14 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
     right: auto !important;
     bottom: 0 !important;
     top: auto !important;
-    transform: translate3d(-50%, 8px, 0);
+    transform: translate3d(-50%, 8px, 0) !important;
     max-width: none;
     width: var(--thc-mobile-width, 100vw);
     padding: 0;
   }
 
   .topic-hover-card-tooltip.is-visible {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0) !important;
   }
 }
 
