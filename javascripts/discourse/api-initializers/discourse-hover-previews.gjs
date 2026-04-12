@@ -61,42 +61,28 @@ function currentTopicPathFromLocation() {
   }
 }
 
-function isCurrentTopicLink(href) {
-  if (!href) return false;
-
-  try {
-    const url = new URL(href, window.location.origin);
-    if (url.origin !== window.location.origin) return false;
-
-    const linkMatch = url.pathname.match(TOPIC_LINK_RE);
-    if (!linkMatch) return false;
-
-    const linkTopicId = parseInt(linkMatch[1], 10);
-    const currentTopicId = currentTopicIdFromLocation();
-
-    if (currentTopicId && linkTopicId === currentTopicId) {
-      return true;
-    }
-
-    return (
-      url.pathname.replace(/\/+$/, "") === currentTopicPathFromLocation()
-    );
-  } catch {
-    return false;
-  }
-}
-
-function topicIdFromHref(href) {
+function parsedTopicUrl(href) {
   if (!href) return null;
 
   try {
     const url = new URL(href, window.location.origin);
     if (url.origin !== window.location.origin) return null;
-    const m = url.pathname.match(TOPIC_LINK_RE);
-    return m ? parseInt(m[1], 10) : null;
+
+    const match = url.pathname.match(TOPIC_LINK_RE);
+    if (!match) return null;
+
+    return {
+      url,
+      topicId: parseInt(match[1], 10),
+    };
   } catch {
     return null;
   }
+}
+
+function topicIdFromHref(href) {
+  const parsed = parsedTopicUrl(href);
+  return parsed ? parsed.topicId : null;
 }
 
 function fmtNum(n) {
@@ -434,11 +420,6 @@ async function hoverCardsDisabledForUser(api, currentUser) {
   return false;
 }
 
-function isTopicAnchor(link) {
-  if (!link) return false;
-  return !!topicIdFromHref(link.href);
-}
-
 function inDocCategoriesView(link) {
   return !!link.closest(
     ".doc-categories a, .doc-categories-container a, [class*='doc-categories'] a"
@@ -452,8 +433,6 @@ function inKanbanView(link) {
 }
 
 function inCategoryHomepageTopicList(link) {
-  if (!isTopicAnchor(link)) return false;
-
   return !!link.closest(
     ".categories-and-latest-topics a.title, " +
       ".categories-and-latest-topics .main-link a, " +
@@ -480,6 +459,65 @@ function inSuggestedTopics(link) {
 
 function inCookedPost(link) {
   return !!link.closest(".topic-post .cooked a");
+}
+
+function isCurrentTopicLink(link) {
+  const parsed = parsedTopicUrl(link?.href);
+  if (!parsed) return false;
+
+  const currentTopicId = currentTopicIdFromLocation();
+  if (currentTopicId && parsed.topicId === currentTopicId) {
+    return true;
+  }
+
+  return (
+    parsed.url.pathname.replace(/\/+$/, "") === currentTopicPathFromLocation()
+  );
+}
+
+function isCookedPostFragmentLink(link) {
+  if (!link || !inCookedPost(link)) return false;
+
+  const href = link.getAttribute("href") || "";
+  if (href.startsWith("#")) return true;
+
+  try {
+    const url = new URL(link.href, window.location.origin);
+    return !!url.hash;
+  } catch {
+    return false;
+  }
+}
+
+function isEligiblePreviewLink(link) {
+  if (!link) return false;
+
+  const parsed = parsedTopicUrl(link.href);
+  if (!parsed) {
+    return false;
+  }
+
+  if (inCookedPost(link)) {
+    if (isCurrentTopicLink(link)) {
+      debugLog("Skipping current-topic cooked-post link", {
+        href: link.href,
+      });
+      return false;
+    }
+
+    if (isCookedPostFragmentLink(link)) {
+      debugLog("Skipping cooked-post fragment link", {
+        href: link.href,
+      });
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function isTopicAnchor(link) {
+  return isEligiblePreviewLink(link);
 }
 
 function buildCardHTML(topic, site, isMobile = false) {
@@ -1003,13 +1041,6 @@ export default apiInitializer((api) => {
       }
 
       if (inCookedPost(link)) {
-        if (isCurrentTopicLink(link.href)) {
-          debugLog("Skipping current-topic cooked-post link", {
-            href: link.href,
-          });
-          return false;
-        }
-
         const post = link.closest(".topic-post");
         const isFirstPost = post?.classList.contains("topic-owner");
 
@@ -1042,7 +1073,7 @@ export default apiInitializer((api) => {
       if (isMobileView()) return;
 
       const link = event.target.closest("a[href]");
-      if (!link || !topicIdFromHref(link.href)) return;
+      if (!link || !linkInSupportedArea(link)) return;
 
       scheduleHide();
     }
