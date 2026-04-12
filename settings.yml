@@ -1,7 +1,3 @@
-card_width:
-  type: string
-  default: "32rem"
-  description: "Any valid CSS width value, such as 32rem, 420px, 40vw, or clamp(20rem, 40vw, 36rem)."
 
 card_delay_ms:
   type: integer
@@ -13,8 +9,31 @@ card_delay_ms:
 enable_on_mobile:
   type: bool
   default: false
-  description: "Enable tap-to-preview behavior on touch devices."
-  
+  description: "Enable tap-to-preview behavior on touch devices. If not enabled, all settings below for Mobile are ignored."
+
+density:
+  type: enum
+  default: default
+  choices:
+    - default
+    - cozy
+    - compact
+  description: "Controls desktop hover card density."
+
+density_mobile:
+  type: enum
+  default: default
+  choices:
+    - default
+    - cozy
+    - compact
+  description: "Controls mobile hover card density."
+
+card_width:
+  type: string
+  default: "32rem"
+  description: "Any valid CSS width value, such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem)."
+
 mobile_width_percent:
   type: integer
   default: 100
@@ -54,24 +73,6 @@ thumbnail_auto_fit_max_width:
   type: string
   default: "10rem"
   description: "Used only in auto-fit-height mode. Sets the maximum width of the left/right thumbnail box. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
-
-density:
-  type: enum
-  default: default
-  choices:
-    - default
-    - cozy
-    - compact
-  description: "Controls desktop hover card density."
-
-density_mobile:
-  type: enum
-  default: default
-  choices:
-    - default
-    - cozy
-    - compact
-  description: "Controls mobile hover card density."
 
 image_size_percent:
   type: integer
@@ -113,12 +114,12 @@ show_title_mobile:
 show_excerpt:
   type: bool
   default: true
-  description: "Display a cleaned text excerpt from the topic on desktop."
+  description: "Display a text excerpt on desktop."
 
 show_excerpt_mobile:
   type: bool
   default: true
-  description: "Display a cleaned text excerpt from the topic on mobile."
+  description: "Display a text excerpt on mobile."
 
 excerpt_length:
   type: integer

@@ -3,15 +3,22 @@ en:
     description: "Shows rich hover preview cards for internal topic links across topics, replies, topic lists, the categories homepage, Doc Categories, Kanban boards, and suggested topics."
 
   settings:
-    card_width: "Card width"
-    card_width_description: "Any valid CSS width value, such as 32rem, 420px, 40vw, or clamp(20rem, 40vw, 36rem)."
-
+  
     card_delay_ms: "Hover delay"
     card_delay_ms_description: "Delay in milliseconds before the hover card appears."
-
+  
     enable_on_mobile: "Enable on mobile"
-    enable_on_mobile_description: "Enable tap-to-preview behavior on touch devices."
+    enable_on_mobile_description: "Enable tap-to-preview behavior on touch devices. If not enabled, all settings below for Mobile are ignored."
     
+    density: "Density"
+    density_description: "Controls desktop hover card density."
+
+    density_mobile: "Density on mobile"
+    density_mobile_description: "Controls mobile hover card density."
+
+    card_width: "Card width"
+    card_width_description: "Any valid CSS width value, such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem)."
+
     mobile_width_percent: "Mobile width percent"
     mobile_width_percent_description: "Controls the mobile preview width as a percentage of the viewport width."
 
@@ -29,12 +36,6 @@ en:
 
     thumbnail_auto_fit_max_width: "Thumbnail auto-fit max width"
     thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height mode. Sets the maximum width of the left/right thumbnail box. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
-
-    density: "Density"
-    density_description: "Controls desktop hover card density."
-
-    density_mobile: "Density on mobile"
-    density_mobile_description: "Controls mobile hover card density."
 
     image_size_percent: "Image size percent"
     image_size_percent_description: "Used only in manual thumbnail size mode. Sets the left/right image width as a percentage of the hover card width."
@@ -58,10 +59,10 @@ en:
     show_title_mobile_description: "Display the topic title on mobile."
 
     show_excerpt: "Show excerpt"
-    show_excerpt_description: "Display a cleaned text excerpt from the topic on desktop."
+    show_excerpt_description: "Display a text excerpt on desktop."
 
     show_excerpt_mobile: "Show excerpt on mobile"
-    show_excerpt_mobile_description: "Display a cleaned text excerpt from the topic on mobile."
+    show_excerpt_mobile_description: "Display a text excerpt on mobile."
 
     excerpt_length: "Excerpt length"
     excerpt_length_description: "Number of excerpt lines to show on desktop."
