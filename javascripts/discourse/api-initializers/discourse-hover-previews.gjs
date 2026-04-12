@@ -53,13 +53,20 @@ function currentTopicIdFromLocation() {
   return m ? parseInt(m[1], 10) : null;
 }
 
-function isSameTopicFragmentLink(href) {
+function currentTopicPathFromLocation() {
+  try {
+    return new URL(window.location.href).pathname.replace(/\/+$/, "");
+  } catch {
+    return window.location.pathname.replace(/\/+$/, "");
+  }
+}
+
+function isCurrentTopicLink(href) {
   if (!href) return false;
 
   try {
     const url = new URL(href, window.location.origin);
     if (url.origin !== window.location.origin) return false;
-    if (!url.hash) return false;
 
     const linkMatch = url.pathname.match(TOPIC_LINK_RE);
     if (!linkMatch) return false;
@@ -67,7 +74,13 @@ function isSameTopicFragmentLink(href) {
     const linkTopicId = parseInt(linkMatch[1], 10);
     const currentTopicId = currentTopicIdFromLocation();
 
-    return currentTopicId && linkTopicId === currentTopicId;
+    if (currentTopicId && linkTopicId === currentTopicId) {
+      return true;
+    }
+
+    return (
+      url.pathname.replace(/\/+$/, "") === currentTopicPathFromLocation()
+    );
   } catch {
     return false;
   }
@@ -75,7 +88,6 @@ function isSameTopicFragmentLink(href) {
 
 function topicIdFromHref(href) {
   if (!href) return null;
-  if (isSameTopicFragmentLink(href)) return null;
 
   try {
     const url = new URL(href, window.location.origin);
@@ -991,6 +1003,13 @@ export default apiInitializer((api) => {
       }
 
       if (inCookedPost(link)) {
+        if (isCurrentTopicLink(link.href)) {
+          debugLog("Skipping current-topic cooked-post link", {
+            href: link.href,
+          });
+          return false;
+        }
+
         const post = link.closest(".topic-post");
         const isFirstPost = post?.classList.contains("topic-owner");
 
