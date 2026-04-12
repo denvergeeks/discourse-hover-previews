@@ -484,6 +484,7 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
@@ -659,7 +660,6 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
     transform: none;
   }
 }
-
 
 .topic-hover-card__loading {
   font-size: 0.85em;
