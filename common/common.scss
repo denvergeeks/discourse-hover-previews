@@ -38,7 +38,7 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
   transform: translate3d(0, -4px, 0);
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .topic-hover-card-tooltip {
     left: 50% !important;
     right: auto !important;
@@ -352,7 +352,7 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
   width: 100%;
   min-width: 0;
   color: var(--primary-medium, $primary-medium);
-  -webkit-mask-image: none;
+  mask-image: none;
   mask-image: none;
 }
 
@@ -639,7 +639,7 @@ html[data-theme="dark"] .topic-hover-card-tooltip,
   }
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .topic-hover-card {
     max-height: min(85vh, 32rem);
     border-bottom-left-radius: 0;
