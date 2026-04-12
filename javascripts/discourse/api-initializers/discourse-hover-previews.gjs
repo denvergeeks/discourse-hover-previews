@@ -396,51 +396,30 @@ function inCategoryHomepageTopicList(link) {
 
   return !!link.closest(
     ".categories-and-latest-topics a.title, " +
-      ".categories-and-latest-topics .main-link a.title, " +
+      ".categories-and-latest-topics .main-link a, " +
       ".categories-and-featured-topics a.title, " +
-      ".categories-and-featured-topics .main-link a.title, " +
+      ".categories-and-featured-topics .main-link a, " +
       ".categories-with-featured-topics a.title, " +
-      ".categories-with-featured-topics .main-link a.title, " +
+      ".categories-with-featured-topics .main-link a, " +
       ".categories-only a.title, " +
-      ".categories-only .main-link a.title"
+      ".categories-only .main-link a"
   );
 }
 
 function inTopicList(link) {
   return !!link.closest(
-    ".topic-list a.title, .topic-list .main-link a.title, " +
-      "[class*='topic-list'] a.title, [class*='topic-list'] .main-link a.title"
+    ".topic-list a.title, .topic-list .main-link a, [class*='topic-list'] a.title, [class*='topic-list'] .main-link a"
   );
 }
 
 function inSuggestedTopics(link) {
   return !!link.closest(
-    ".suggested-topics a.title, .suggested-topics .main-link a.title"
+    ".suggested-topics a.title, .suggested-topics .main-link a"
   );
 }
 
 function inCookedPost(link) {
-  const cookedLink = link.closest(".topic-post .cooked a");
-  if (!cookedLink) {
-    return false;
-  }
-
-  const topicId = topicIdFromHref(cookedLink.href);
-  if (!topicId) {
-    return false;
-  }
-
-  if (
-    cookedLink.matches(
-      "a.footnote-ref, sup.footnote-ref a, a[data-footnote-ref], " +
-        "a[data-tooltip], a[aria-describedby*='tooltip'], " +
-        "[data-inline-tooltip] a, .inline-tooltip a, .glossary-term a"
-    )
-  ) {
-    return false;
-  }
-
-  return true;
+  return !!link.closest(".topic-post .cooked a");
 }
 
 function buildCardHTML(topic, site, isMobile = false) {
