@@ -1,13 +1,16 @@
 en:
   theme_metadata:
-    description: "Shows rich hover preview cards for internal topic links across topics, replies, topic lists, the categories homepage, Doc Categories, Kanban boards, and suggested topics."
+    description: "Shows rich hover preview cards for internal topic links across topic lists, topic pages, search results, categories, tags, user profiles, and other supported Discourse areas."
 
   settings:
-    card_delay_ms: "Hover Delay"
-    card_delay_ms_description: "Delay in milliseconds before the hover card appears."
+    enabled: "Enabled"
+    enabled_description: "Enable the hover preview theme component."
 
-    enable_on_mobile: "Enable on Mobile"
-    enable_on_mobile_description: "Enable tap-to-preview behavior on touch devices. If not enabled, all mobile-specific settings are ignored."
+    delay_show: "Hover Delay"
+    delay_show_description: "Delay in milliseconds before the hover card appears."
+
+    mobile_enabled: "Enable on Mobile"
+    mobile_enabled_description: "Enable tap-to-preview behavior on touch devices. If disabled, mobile-specific preview behavior is turned off."
 
     density: "Density on Desktop"
     density_description: "Controls desktop hover card density."
@@ -25,37 +28,37 @@ en:
     show_thumbnail_description: "Display the topic thumbnail image on desktop."
 
     thumbnail_placement: "Thumbnail Placement on Desktop"
-    thumbnail_placement_description: "On desktop, choose where the thumbnail appears."
+    thumbnail_placement_description: "Choose where the thumbnail appears on desktop."
 
     thumbnail_size_mode: "Thumbnail Sizing Mode on Desktop"
-    thumbnail_size_mode_description: "On desktop, auto-fit-height matches the image height to the card height and uses Thumbnail Auto-Fit Max Width to constrain width. Manual mode uses Thumbnail Size as Percent."
+    thumbnail_size_mode_description: "On desktop, auto-fit-height matches the image height to the card height and uses the auto-fit max width setting to constrain width. Manual mode uses the configured percentage width."
 
     thumbnail_auto_fit_max_width: "Thumbnail Auto-Fit Max Width on Desktop"
-    thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height thumbnail sizing mode. Accepts any valid CSS width value such as 8rem, 160px, or 12vw."
+    thumbnail_auto_fit_max_width_description: "Used only in auto-fit-height thumbnail sizing mode. Accepts valid CSS width values such as 8rem, 160px, or 12vw."
 
     thumbnail_size_percent: "Thumbnail Size as Percent on Desktop"
-    thumbnail_size_percent_description: "Used only in manual thumbnail sizing mode. Sets the left/right image width as a percentage of the hover card width."
+    thumbnail_size_percent_description: "Used only in manual thumbnail sizing mode. Sets the left or right image width as a percentage of the hover card width."
 
     show_thumbnail_mobile: "Show Thumbnail on Mobile"
     show_thumbnail_mobile_description: "Display the topic thumbnail image on mobile."
 
     thumbnail_placement_mobile: "Thumbnail Placement on Mobile"
-    thumbnail_placement_mobile_description: "On mobile, choose where the thumbnail appears."
+    thumbnail_placement_mobile_description: "Choose where the thumbnail appears on mobile."
 
     thumbnail_size_mode_mobile: "Thumbnail Sizing Mode on Mobile"
-    thumbnail_size_mode_mobile_description: "On mobile, auto-fit-height matches the image height to the card height and uses Thumbnail Auto-Fit Max Width on Mobile to constrain width. Manual mode uses Thumbnail Size as Percent on Mobile."
+    thumbnail_size_mode_mobile_description: "On mobile, auto-fit-height matches the image height to the card height and uses the mobile auto-fit max width setting to constrain width. Manual mode uses the configured percentage width."
 
     thumbnail_auto_fit_max_width_mobile: "Thumbnail Auto-Fit Max Width on Mobile"
-    thumbnail_auto_fit_max_width_mobile_description: "Used only in mobile auto-fit-height thumbnail sizing mode. Accepts any valid CSS width value such as 7rem, 140px, or 30vw."
+    thumbnail_auto_fit_max_width_mobile_description: "Used only in mobile auto-fit-height thumbnail sizing mode. Accepts valid CSS width values such as 7rem, 140px, or 30vw."
 
     thumbnail_size_percent_mobile: "Thumbnail Size as Percent on Mobile"
-    thumbnail_size_percent_mobile_description: "Used only in mobile manual thumbnail sizing mode. Sets the left/right image width as a percentage of the hover card width."
+    thumbnail_size_percent_mobile_description: "Used only in mobile manual thumbnail sizing mode. Sets the left or right image width as a percentage of the hover card width."
 
-    thumbnail_height_top_bottom: "Top/Bottom Thumbnail Height on Desktop"
-    thumbnail_height_top_bottom_description: "Used when the thumbnail is placed on top or bottom on desktop. Accepts any valid CSS height value such as auto, 10rem, 180px, 20vh, or clamp(8rem, 20vw, 14rem)."
+    thumbnail_height_top_bottom: "Top or Bottom Thumbnail Height on Desktop"
+    thumbnail_height_top_bottom_description: "Used when the thumbnail is placed on top or bottom on desktop. Accepts valid CSS height values such as auto, 10rem, 180px, 20vh, or clamp(8rem, 20vw, 14rem)."
 
-    thumbnail_height_top_bottom_mobile: "Top/Bottom Thumbnail Height on Mobile"
-    thumbnail_height_top_bottom_mobile_description: "Used when the thumbnail is placed on top or bottom on mobile. Accepts any valid CSS height value such as auto, 9rem, 160px, 25vh, or clamp(7rem, 24vw, 12rem)."
+    thumbnail_height_top_bottom_mobile: "Top or Bottom Thumbnail Height on Mobile"
+    thumbnail_height_top_bottom_mobile_description: "Used when the thumbnail is placed on top or bottom on mobile. Accepts valid CSS height values such as auto, 9rem, 160px, 25vh, or clamp(7rem, 24vw, 12rem)."
 
     show_title: "Show Title on Desktop"
     show_title_description: "Display the topic title on desktop."
@@ -123,32 +126,35 @@ en:
     show_activity_mobile: "Show Last Activity on Mobile"
     show_activity_mobile_description: "Display the most recent topic activity date on mobile."
 
-    enable_on_topics: "Enable on Topics"
-    enable_on_topics_description: "Show hover cards for internal topic links inside the original post."
+    enable_on_topic_list: "Enable on Topic Lists"
+    enable_on_topic_list_description: "Show hover cards in standard topic list views."
 
-    enable_on_replies: "Enable on Replies"
-    enable_on_replies_description: "Show hover cards for internal topic links inside replies."
+    enable_on_latest: "Enable on Latest Lists"
+    enable_on_latest_description: "Show hover cards in latest-topic list contexts."
 
-    enable_on_topic_lists: "Enable on Topic Lists"
-    enable_on_topic_lists_description: "Show hover cards for internal topic links shown in standard topic list views."
+    enable_on_categories: "Enable on Categories"
+    enable_on_categories_description: "Show hover cards in category list and category homepage topic-list contexts."
 
-    enable_on_category_homepage_topic_lists: "Enable on Category Homepage Topic Lists"
-    enable_on_category_homepage_topic_lists_description: "Show hover cards for internal topic links shown in topic-list areas on category homepage layouts."
+    enable_on_tags: "Enable on Tags"
+    enable_on_tags_description: "Show hover cards in tag-related views."
 
-    enable_on_doc_categories: "Enable on Doc Categories"
-    enable_on_doc_categories_description: "Show hover cards for internal topic links inside Discourse Doc Categories views and navigation areas."
+    enable_on_search: "Enable on Search"
+    enable_on_search_description: "Show hover cards in search result views."
 
-    enable_on_kanban_boards: "Enable on Kanban Boards"
-    enable_on_kanban_boards_description: "Show hover cards for internal topic links inside Discourse Kanban board cards and board views."
+    enable_on_topic_page: "Enable on Topic Pages"
+    enable_on_topic_page_description: "Show hover cards for internal topic links on topic pages, including posts and suggested topics."
 
-    enable_on_suggested_topic_links: "Enable on Suggested Topic Links"
-    enable_on_suggested_topic_links_description: "Show hover cards for links in the suggested topics section."
+    enable_on_user_profile: "Enable on User Profiles"
+    enable_on_user_profile_description: "Show hover cards in user profile content areas."
+
+    enable_on_other: "Enable on Other Cooked Content"
+    enable_on_other_description: "Show hover cards in other cooked content areas not covered by the main view settings."
 
     user_preference_field_name: "User Preference Field Name"
     user_preference_field_name_description: "Custom user field key used to disable hover cards per user. Supports direct keys, numeric IDs, and user_field_X keys."
 
-    resolve_user_field_id_for_admins: "Resolve user field ID for admins"
-    resolve_user_field_id_for_admins_description: "When enabled, staff can configure the preference field by name or user_field_X; the component resolves the numeric user-field ID via /admin/config/user-fields.json."
+    resolve_user_field_id_for_admins: "Resolve User Field ID for Admins"
+    resolve_user_field_id_for_admins_description: "When enabled, staff can configure the preference field by name or user_field_X, and the component resolves the numeric user-field ID via /admin/config/user-fields.json."
 
     topic_cache_max: "Topic Cache Max"
     topic_cache_max_description: "Maximum number of topic JSON responses kept in the in-memory LRU cache during the current page session."

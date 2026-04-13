@@ -18,7 +18,7 @@ $thc-space-5: 0.7rem;
   transform: translate3d(0, 4px, 0);
   will-change: transform, opacity;
   transition: opacity 160ms ease, transform 160ms ease;
-  color: var(--primary, $primary);
+  color: inherit;
 }
 
 html.dark #topic-hover-card-tooltip,
@@ -66,7 +66,7 @@ html[data-theme="dark"] #topic-hover-card-tooltip,
   height: auto;
   max-height: none;
   min-height: 0;
-  contain: layout;
+  content-visibility: auto;
 }
 
 .topic-hover-card__thumbnail {
@@ -368,6 +368,7 @@ html[data-theme="dark"] #topic-hover-card-tooltip,
   white-space: nowrap;
   flex: 0 0 auto;
 
+  svg,
   .d-icon {
     width: 0.85em;
     height: 0.85em;
@@ -671,7 +672,7 @@ html[data-theme="dark"] #topic-hover-card-tooltip,
 
 @media (width <= 767px) {
   .topic-hover-card {
-    max-height: min(85vh, 32rem);
+    max-height: min(80vh, 32rem);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }

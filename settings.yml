@@ -1,11 +1,16 @@
-card_delay_ms:
+enabled:
+  default: true
+  type: bool
+  description: Enable the hover preview theme component.
+
+delay_show:
   default: 300
   type: integer
   min: 0
   max: 2000
   description: Delay in milliseconds before the hover card appears.
 
-enable_on_mobile:
+mobile_enabled:
   default: false
   type: bool
   description: Enable tap-to-preview behavior on touch devices.
@@ -31,7 +36,7 @@ density_mobile:
 card_width:
   default: 32rem
   type: string
-  description: Desktop hover card width. Accepts any valid CSS width value such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem).
+  description: Desktop hover card width. Accepts valid CSS width values such as 32rem, 420px, 50%, 40vw, or clamp(20rem, 40vw, 36rem).
 
 mobile_width_percent:
   default: 100
@@ -53,7 +58,7 @@ thumbnail_placement:
     - right
     - bottom
     - left
-  description: Thumbnail placement on desktop (top, right, bottom, or left of card content).
+  description: Thumbnail placement on desktop.
 
 thumbnail_size_mode:
   default: auto_fit_height
@@ -66,7 +71,7 @@ thumbnail_size_mode:
 thumbnail_auto_fit_max_width:
   default: 10rem
   type: string
-  description: Used only in auto-fit-height mode. Accepts any valid CSS width value such as 8rem, 160px, or 12vw.
+  description: Used only in auto-fit-height mode. Accepts valid CSS width values such as 8rem, 160px, or 12vw.
 
 thumbnail_size_percent:
   default: 15
@@ -88,7 +93,7 @@ thumbnail_placement_mobile:
     - right
     - bottom
     - left
-  description: Thumbnail placement on mobile (top, right, bottom, or left of card content).
+  description: Thumbnail placement on mobile.
 
 thumbnail_size_mode_mobile:
   default: manual
@@ -101,7 +106,7 @@ thumbnail_size_mode_mobile:
 thumbnail_auto_fit_max_width_mobile:
   default: 8rem
   type: string
-  description: Used only in mobile auto-fit-height mode. Accepts any valid CSS width value such as 7rem, 140px, or 30vw.
+  description: Used only in mobile auto-fit-height mode. Accepts valid CSS width values such as 7rem, 140px, or 30vw.
 
 thumbnail_size_percent_mobile:
   default: 33
@@ -113,12 +118,12 @@ thumbnail_size_percent_mobile:
 thumbnail_height_top_bottom:
   default: auto
   type: string
-  description: Used when the thumbnail is placed on top or bottom on desktop. Accepts any valid CSS height value such as auto, 10rem, 180px, 20vh, or clamp(8rem, 20vw, 14rem).
+  description: Used when the thumbnail is placed on top or bottom on desktop. Accepts valid CSS height values such as auto, 10rem, 180px, 20vh, or clamp(8rem, 20vw, 14rem).
 
 thumbnail_height_top_bottom_mobile:
   default: auto
   type: string
-  description: Used when the thumbnail is placed on top or bottom on mobile. Accepts any valid CSS height value such as auto, 9rem, 160px, 25vh, or clamp(7rem, 24vw, 12rem).
+  description: Used when the thumbnail is placed on top or bottom on mobile. Accepts valid CSS height values such as auto, 9rem, 160px, 25vh, or clamp(7rem, 24vw, 12rem).
 
 show_title:
   default: true
@@ -234,40 +239,45 @@ show_activity_mobile:
   type: bool
   description: Show the last activity date on mobile.
 
-enable_on_topics:
+enable_on_topic_list:
   default: true
   type: bool
-  description: Show hover cards for internal topic links inside the original post.
+  description: Enable hover cards in standard topic list views.
 
-enable_on_replies:
+enable_on_latest:
   default: true
   type: bool
-  description: Show hover cards for internal topic links inside replies.
+  description: Enable hover cards in latest-topic list contexts.
 
-enable_on_topic_lists:
+enable_on_categories:
   default: true
   type: bool
-  description: Show hover cards for internal topic links in standard topic list views.
+  description: Enable hover cards in category list and category homepage topic-list contexts.
 
-enable_on_category_homepage_topic_lists:
+enable_on_tags:
   default: true
   type: bool
-  description: Show hover cards for topic-list areas on category homepage layouts.
+  description: Enable hover cards in tag-related views.
 
-enable_on_doc_categories:
+enable_on_search:
   default: true
   type: bool
-  description: Show hover cards inside Discourse Doc Categories views.
+  description: Enable hover cards in search result views.
 
-enable_on_kanban_boards:
+enable_on_topic_page:
   default: true
   type: bool
-  description: Show hover cards inside Discourse Kanban board views.
+  description: Enable hover cards for internal topic links on topic pages, including posts and suggested topics.
 
-enable_on_suggested_topic_links:
+enable_on_user_profile:
   default: true
   type: bool
-  description: Show hover cards for links in the suggested topics section.
+  description: Enable hover cards in user profile content areas.
+
+enable_on_other:
+  default: false
+  type: bool
+  description: Enable hover cards in other cooked content areas not covered by the main view settings.
 
 user_preference_field_name:
   default: disable_topic_hover_cards
