@@ -120,7 +120,7 @@ const CardCategory = <template>
     <span class="topic-hover-card__category">
       <span
         class="topic-hover-card__category-badge"
-        style={{if @color (concat "--thc-category-color:" @color)}}
+        style={{this.categoryBadgeStyle}}
       >
         <span class="topic-hover-card__category-text">{{@name}}</span>
       </span>
@@ -255,6 +255,10 @@ export default class TopicHoverCard extends Component {
 
   // ── Excerpt ─────────────────────────────────────────────────────────────────
 
+  get excerptStyle() {
+    return `--thc-excerpt-lines:${this.excerptLines}`;
+  }
+
   get showExcerpt() {
     return mobileBool("show_excerpt", "show_excerpt_mobile", this.isMobile, this.s);
   }
@@ -283,6 +287,10 @@ export default class TopicHoverCard extends Component {
 
   // ── Category ─────────────────────────────────────────────────────────────────
 
+  get categoryBadgeStyle() {
+    return this.categoryColor ? `--thc-category-color:${this.categoryColor}` : null;
+  }
+  
   get showCategory() {
     return mobileBool("show_category", "show_category_mobile", this.isMobile, this.s);
   }
@@ -471,7 +479,7 @@ export default class TopicHoverCard extends Component {
           {{#if (and this.showExcerpt this.excerptText)}}
             <div
               class="topic-hover-card__excerpt"
-              style={{concat "--thc-excerpt-lines:" this.excerptLines}}
+              style={{this.excerptStyle}}
             >
               {{this.excerptText}}
             </div>
