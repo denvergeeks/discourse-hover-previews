@@ -1,9 +1,6 @@
 import Component from "@glimmer/component";
-import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import { on } from "@ember/modifier";
-import { fn } from "@ember/helper";
 import { eq } from "truth-helpers";
 import { iconNode } from "discourse/lib/icon-library";
 import {
@@ -120,7 +117,7 @@ const CardCategory = <template>
     <span class="topic-hover-card__category">
       <span
         class="topic-hover-card__category-badge"
-        style={{this.categoryBadgeStyle}}
+        style={{if @color (concat "--thc-category-color:" @color) null}}
       >
         <span class="topic-hover-card__category-text">{{@name}}</span>
       </span>
@@ -220,12 +217,14 @@ export default class TopicHoverCard extends Component {
 
   get cardClasses() {
     const p = this.placement;
-    const sm = this.sizeMode === "auto_fit_height"
-      ? "topic-hover-card--thumb-size-auto-fit-height"
-      : "topic-hover-card--thumb-size-manual";
-    const th = this.topBottomHeightIsAuto
-      ? "topic-hover-card--thumb-top-bottom-height-auto"
-      : "topic-hover-card--thumb-top-bottom-height-custom";
+    const sm =
+      this.sizeMode === "auto_fit_height"
+        ? "topic-hover-card--thumb-size-auto-fit-height"
+        : "topic-hover-card--thumb-size-manual";
+    const th =
+      this.topBottomHeightIsAuto
+        ? "topic-hover-card--thumb-top-bottom-height-auto"
+        : "topic-hover-card--thumb-top-bottom-height-custom";
     return [
       "topic-hover-card",
       `topic-hover-card--thumb-${p}`,
@@ -287,10 +286,6 @@ export default class TopicHoverCard extends Component {
 
   // ── Category ─────────────────────────────────────────────────────────────────
 
-  get categoryBadgeStyle() {
-    return this.categoryColor ? `--thc-category-color:${this.categoryColor}` : null;
-  }
-  
   get showCategory() {
     return mobileBool("show_category", "show_category_mobile", this.isMobile, this.s);
   }
@@ -333,9 +328,11 @@ export default class TopicHoverCard extends Component {
   }
 
   get opUsername() {
-    return this.topic?.details?.created_by?.username ||
-           this.topic?.posters?.[0]?.user?.username ||
-           "";
+    return (
+      this.topic?.details?.created_by?.username ||
+      this.topic?.posters?.[0]?.user?.username ||
+      ""
+    );
   }
 
   get opAvatarUrl() {
@@ -346,10 +343,15 @@ export default class TopicHoverCard extends Component {
     return safeAvatarURL(template, 24);
   }
 
-  // ── Publish date ──────────────────────────────────────────────────────────────
+  // ── Publish date ─────────────────────────────────────────────────────────────
 
   get showPublishDate() {
-    return mobileBool("show_publish_date", "show_publish_date_mobile", this.isMobile, this.s);
+    return mobileBool(
+      "show_publish_date",
+      "show_publish_date_mobile",
+      this.isMobile,
+      this.s
+    );
   }
 
   get publishDate() {
@@ -370,12 +372,15 @@ export default class TopicHoverCard extends Component {
   get showViews() {
     return mobileBool("show_views", "show_views_mobile", this.isMobile, this.s);
   }
+
   get showReplies() {
     return mobileBool("show_reply_count", "show_reply_count_mobile", this.isMobile, this.s);
   }
+
   get showLikes() {
     return mobileBool("show_likes", "show_likes_mobile", this.isMobile, this.s);
   }
+
   get showActivity() {
     return mobileBool("show_activity", "show_activity_mobile", this.isMobile, this.s);
   }
@@ -383,9 +388,11 @@ export default class TopicHoverCard extends Component {
   get viewCount() {
     return formatNumber(this.topic?.views);
   }
+
   get replyCount() {
     return formatNumber(this.topic?.posts_count > 0 ? this.topic.posts_count - 1 : 0);
   }
+
   get likeCount() {
     return formatNumber(this.topic?.like_count);
   }
@@ -406,7 +413,7 @@ export default class TopicHoverCard extends Component {
   get hasAnyStats() {
     return (
       (this.showViews && this.topic?.views) ||
-      (this.showReplies) ||
+      this.showReplies ||
       (this.showLikes && this.topic?.like_count) ||
       (this.showActivity && this.activityDate)
     );
@@ -420,7 +427,45 @@ export default class TopicHoverCard extends Component {
     );
   }
 
-  // ── Mobile open URL ───────────────────────────────────────────────────────────
+  // ── Derived booleans (strict-mode friendly) ─────────────────────────────────
+
+  get hasExcerpt() {
+    return !!(this.showExcerpt && this.excerptText);
+  }
+
+  get hasCategory() {
+    return !!(this.showCategory && this.categoryName);
+  }
+
+  get hasTags() {
+    return !!(this.showTags && this.tags.length);
+  }
+
+  get hasBadges() {
+    return !!(this.hasCategory || this.hasTags);
+  }
+
+  get hasOp() {
+    return !!(this.showOp && this.opUsername);
+  }
+
+  get hasPublishDate() {
+    return !!(this.showPublishDate && this.publishDate);
+  }
+
+  get hasViews() {
+    return !!(this.showViews && this.topic?.views);
+  }
+
+  get hasLikes() {
+    return !!(this.showLikes && this.topic?.like_count);
+  }
+
+  get hasActivityDate() {
+    return !!(this.showActivity && this.activityDate);
+  }
+
+  // ── Mobile open URL ─────────────────────────────────────────────────────────
 
   get topicUrl() {
     const t = this.topic;
@@ -428,7 +473,7 @@ export default class TopicHoverCard extends Component {
     return `${window.location.origin}/t/${t.slug || t.id}/${t.id}`;
   }
 
-  // ── Actions ───────────────────────────────────────────────────────────────────
+  // ── Actions ─────────────────────────────────────────────────────────────────
 
   @action
   handleClose(event) {
@@ -452,10 +497,18 @@ export default class TopicHoverCard extends Component {
       {{! Thumbnail placement: top or left goes before body; bottom/right goes after }}
       <div class={{this.cardClasses}} style={{this.cardStyle}}>
         {{#if (eq this.placement "top")}}
-          <CardThumbnail @imageUrl={{this.imageUrl}} @mode={{this.sizeMode}} @isMobile={{this.isMobile}} />
+          <CardThumbnail
+            @imageUrl={{this.imageUrl}}
+            @mode={{this.sizeMode}}
+            @isMobile={{this.isMobile}}
+          />
         {{/if}}
         {{#if (eq this.placement "left")}}
-          <CardThumbnail @imageUrl={{this.imageUrl}} @mode={{this.sizeMode}} @isMobile={{this.isMobile}} />
+          <CardThumbnail
+            @imageUrl={{this.imageUrl}}
+            @mode={{this.sizeMode}}
+            @isMobile={{this.isMobile}}
+          />
         {{/if}}
 
         <div class="topic-hover-card__body">
@@ -466,17 +519,24 @@ export default class TopicHoverCard extends Component {
               aria-label="Close preview"
               {{on "click" this.handleClose}}
             >
-              <svg class="topic-hover-card__close-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <svg
+                class="topic-hover-card__close-icon"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path d="M4.2 4.2 11.8 11.8M11.8 4.2 4.2 11.8" />
               </svg>
             </button>
           {{/if}}
 
           {{#if this.showTitle}}
-            <div class="topic-hover-card__title">{{this.titleText}}</div>
+            <div class="topic-hover-card__title">
+              {{this.titleText}}
+            </div>
           {{/if}}
 
-          {{#if (and this.showExcerpt this.excerptText)}}
+          {{#if this.hasExcerpt}}
             <div
               class="topic-hover-card__excerpt"
               style={{this.excerptStyle}}
@@ -488,7 +548,7 @@ export default class TopicHoverCard extends Component {
           {{#if this.hasAnyMeta}}
             <div class="topic-hover-card__metadata">
 
-              {{#if (and this.showOp this.opUsername)}}
+              {{#if this.hasOp}}
                 <span class="topic-hover-card__meta-group">
                   <span class="topic-hover-card__op">
                     {{#if this.opAvatarUrl}}
@@ -506,19 +566,31 @@ export default class TopicHoverCard extends Component {
                 </span>
               {{/if}}
 
-              {{#if (and this.showPublishDate this.publishDate)}}
+              {{#if this.hasPublishDate}}
                 <span class="topic-hover-card__meta-group">
-                  <span class="topic-hover-card__meta-separator" aria-hidden="true">·</span>
-                  <span class="topic-hover-card__publish-date">{{this.publishDate}}</span>
+                  <span
+                    class="topic-hover-card__meta-separator"
+                    aria-hidden="true"
+                  >
+                    ·
+                  </span>
+                  <span class="topic-hover-card__publish-date">
+                    {{this.publishDate}}
+                  </span>
                 </span>
               {{/if}}
 
               {{#if this.hasAnyStats}}
                 <span class="topic-hover-card__meta-group">
-                  <span class="topic-hover-card__meta-separator" aria-hidden="true">·</span>
+                  <span
+                    class="topic-hover-card__meta-separator"
+                    aria-hidden="true"
+                  >
+                    ·
+                  </span>
                   <span class="topic-hover-card__stats">
 
-                    {{#if (and this.showViews this.topic.views)}}
+                    {{#if this.hasViews}}
                       <span class="topic-hover-card__stat">
                         {{iconNode "far-eye"}}
                         <span>{{this.viewCount}}</span>
@@ -532,14 +604,14 @@ export default class TopicHoverCard extends Component {
                       </span>
                     {{/if}}
 
-                    {{#if (and this.showLikes this.topic.like_count)}}
+                    {{#if this.hasLikes}}
                       <span class="topic-hover-card__stat">
                         {{iconNode "heart"}}
                         <span>{{this.likeCount}}</span>
                       </span>
                     {{/if}}
 
-                    {{#if (and this.showActivity this.activityDate)}}
+                    {{#if this.hasActivityDate}}
                       <span class="topic-hover-card__stat">
                         {{iconNode "clock"}}
                         <span>{{this.activityDate}}</span>
@@ -554,18 +626,23 @@ export default class TopicHoverCard extends Component {
           {{/if}}
 
           {{! Badges: category + tags }}
-          {{#if (or (and this.showCategory this.categoryName) (and this.showTags this.tags.length))}}
+          {{#if this.hasBadges}}
             <div class="topic-hover-card__badges">
 
-              {{#if (and this.showCategory this.categoryName)}}
-                <CardCategory @name={{this.categoryName}} @color={{this.categoryColor}} />
+              {{#if this.hasCategory}}
+                <CardCategory
+                  @name={{this.categoryName}}
+                  @color={{this.categoryColor}}
+                />
               {{/if}}
 
-              {{#if (and this.showTags this.tags.length)}}
+              {{#if this.hasTags}}
                 <div class="topic-hover-card__tags">
                   {{#each this.tags as |tag|}}
                     <span class="topic-hover-card__tag">
-                      <span class="topic-hover-card__tag-text">{{tag}}</span>
+                      <span class="topic-hover-card__tag-text">
+                        {{tag}}
+                      </span>
                     </span>
                   {{/each}}
                 </div>
@@ -590,10 +667,18 @@ export default class TopicHoverCard extends Component {
         </div>{{! end __body }}
 
         {{#if (eq this.placement "right")}}
-          <CardThumbnail @imageUrl={{this.imageUrl}} @mode={{this.sizeMode}} @isMobile={{this.isMobile}} />
+          <CardThumbnail
+            @imageUrl={{this.imageUrl}}
+            @mode={{this.sizeMode}}
+            @isMobile={{this.isMobile}}
+          />
         {{/if}}
         {{#if (eq this.placement "bottom")}}
-          <CardThumbnail @imageUrl={{this.imageUrl}} @mode={{this.sizeMode}} @isMobile={{this.isMobile}} />
+          <CardThumbnail
+            @imageUrl={{this.imageUrl}}
+            @mode={{this.sizeMode}}
+            @isMobile={{this.isMobile}}
+          />
         {{/if}}
       </div>
     {{/if}}
